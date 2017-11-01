@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="splashScreenBackColor">#FF4081</color>
+
+
+    <color name="white">#ffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="black">#000000</color>
+    <color name="gray">#999999</color>
+    <color name="gray_light">#c0c0c0</color>
+    <color name="gray_light_2">#d1d1d1</color>
+    <color name="gray_light_3">#dedede</color>
+    <color name="gray_light_4">#e7e7e7</color>
+    <color name="dark_gray">#666666</color>
+    <color name="dark_gray_2">#ff262626</color>
+    <color name="silver">#dddddd</color>
+    <color name="silver_darker">#dddddd</color>
+    <color name="silver_light">#e0e0e0</color>
+    <color name="silver_light_2">#f2f2f2</color>
+    <color name="silver_light_3">#f7f7f7</color>
+    <color name="blue">#0066cc</color>
+    <color name="blue_light_3">#a1caf2</color>
+    <color name="green">#27ae60</color>
+    <color name="gold">#ffe022</color>
+    <color name="darker_gold">#ffffc022</color>
+    <color name="shadow">#b1444444</color>
+    <color name="shadow_lighter">#20000000</color>
+    <color name="shadow_darker">#EE444444</color>
+    <color name="red">#ffbe313b</color>
+    <color name="light_red">#bffdced2</color>
+    <color name="light_red_2">#bffa8f98</color>
+    <color name="red_darker">#892027</color>
+</resources>

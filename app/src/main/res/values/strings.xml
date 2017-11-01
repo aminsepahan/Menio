@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Menio</string>
+    <string name="currency_name">تومان</string>
+    <string name="yes">بله</string>
+    <string name="no">نه</string>
+    <string name="thanks">سپاس</string>
+    <string name="send_again">کد را دوباره بفرست</string>
+    <string name="connection_error">خطای اتصال</string>
+    <string name="you_are_offline">شما به اینترنت وصل نیستید</string>
+    <string name="retry">تلاش دوباره</string>
+</resources>
