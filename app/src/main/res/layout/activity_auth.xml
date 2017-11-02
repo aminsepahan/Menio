@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="presenter"
+            type="io.menio.android.activities.Auth.AuthPresenter" />
+    </data>
+
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutDirection="rtl"
+        android:orientation="vertical"
+        tools:context="io.menio.android.activities.Auth.AuthActivity">
+
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/loginLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/auth_logo_margin_top"
+            android:src="@drawable/login_icon" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/loginTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="14dp"
+            android:fontFamily="@font/theme_font_family"
+            android:text="@string/login"
+            android:textColor="@color/textColorBlack"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/userNameLay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/auth_input_h_m"
+            android:layout_marginStart="@dimen/auth_input_h_m">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/userNameLogo"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignBottom="@+id/userNameTitle"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/user_name_logo" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/userNameTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_toEndOf="@id/userNameLogo"
+                android:fontFamily="@font/theme_font_family"
+                android:text="@string/user_name"
+                android:textColor="@color/textColorBlack" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/userName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/userNameTitle"
+                android:fontFamily="@font/theme_font_family"
+                android:padding="5dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/auth_input_h_m"
+            android:layout_marginStart="@dimen/auth_input_h_m"
+            android:layout_marginTop="10dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/passwordLogo"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignBottom="@+id/passwordTitle"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/password_logo" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/passwordTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_toEndOf="@id/passwordLogo"
+                android:fontFamily="@font/theme_font_family"
+                android:text="@string/password"
+                android:textColor="@color/textColorBlack" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/passwordTitle"
+                android:fontFamily="@font/theme_font_family"
+                android:inputType="textPassword"
+                android:padding="5dp" />
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/loginBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/colorPrimary"
+            android:fontFamily="@font/theme_font_family"
+            android:text="@string/login"
+            android:textColor="@color/themeButtonTextColor" />
+
+
+    </LinearLayout>
+</layout>
+

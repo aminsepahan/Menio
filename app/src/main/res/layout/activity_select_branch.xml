@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    tools:context="io.menio.android.activities.Auth.AuthActivity">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/loginLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/auth_logo_margin_top"
+        android:src="@drawable/ic_restaurant" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/loginTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="14dp"
+        android:fontFamily="@font/theme_font_family"
+        android:text="@string/select_branch"
+        android:textColor="@color/textColorBlack"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/auth_input_h_m"
+        android:layout_marginStart="@dimen/auth_input_h_m"
+        android:layout_marginTop="20dp">
+
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/passwordLogo"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/branch_logo" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/branchSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray_light"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="30dp"
+            android:layout_alignBottom="@+id/branchSpinner"/>
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:fontFamily="@font/theme_font_family"
+        android:text="@string/confirm"
+        android:textColor="@color/themeButtonTextColor" />
+
+
+</LinearLayout>

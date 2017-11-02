@@ -8,4 +8,9 @@
     <string name="connection_error">خطای اتصال</string>
     <string name="you_are_offline">شما به اینترنت وصل نیستید</string>
     <string name="retry">تلاش دوباره</string>
+    <string name="login">ورود</string>
+    <string name="user_name">نام کاربری</string>
+    <string name="password">رمز عبور</string>
+    <string name="select_branch">انتخاب شعبه</string>
+    <string name="confirm">تایید</string>
 </resources>

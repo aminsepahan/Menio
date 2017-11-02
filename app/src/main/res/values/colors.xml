@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#c70037</color>
+    <color name="colorPrimaryDark">#9f0731</color>
     <color name="colorAccent">#FF4081</color>
     <color name="splashScreenBackColor">#FF4081</color>
+    <color name="textColorBlack">#1c2029</color>
+    <color name="themeButtonTextColor">#ffffff</color>
 
 
     <color name="white">#ffffff</color>
