@@ -7,6 +7,7 @@ import android.view.WindowManager;
 
 import io.menio.android.R;
 import io.menio.android.activities.Auth.AuthActivity;
+import io.menio.android.activities.Menu.MenuActivity;
 
 import static io.menio.android.utilities.Constants.IS_LOGGED_IN;
 import static io.menio.android.utilities.Snippets.isSet;
@@ -30,7 +31,7 @@ public class SplashScreen extends Activity {
 
     public void openApp() {
         if (isSet(IS_LOGGED_IN)) {
-            MainActivity.Companion.open(this, true);
+            MenuActivity.Companion.open(this, true);
 
         } else {
             AuthActivity.Companion.open(this, true);

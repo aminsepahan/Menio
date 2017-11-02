@@ -3,6 +3,7 @@
     package="io.menio.android">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".utilities.AppController"
         android:allowBackup="true"
@@ -11,23 +12,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.MainActivity">
-
-        </activity>
-        <activity android:name=".activities.Auth.AuthActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.SelectMenu.SelectMenuActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.Auth.SelectBranchActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activities.SplashScreen"
+        <activity android:name=".activities.Menu.MenuActivity"></activity>
+        <activity
+            android:name=".activities.Auth.AuthActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.SelectMenu.SelectMenuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.Auth.SelectBranchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.SplashScreen"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.Auth.Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
