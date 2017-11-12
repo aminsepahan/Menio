@@ -54,12 +54,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.menio.android.R;
 
-import static io.menio.android.utilities.Constants.FALSE;
-import static io.menio.android.utilities.Constants.SP_FILE_NAME_BASE;
-import static io.menio.android.utilities.Constants.TRUE;
-import static io.menio.android.utilities.Constants.themeFont;
-import static io.menio.android.utilities.Constants.themeFontBold;
-import static io.menio.android.utilities.Constants.themeFontLight;
+import static io.menio.android.utilities.Constants.*;
 
 
 /**
