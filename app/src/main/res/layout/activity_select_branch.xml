@@ -35,19 +35,26 @@
         android:layout_marginStart="@dimen/auth_input_h_m"
         android:layout_marginTop="20dp">
 
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/branchSpinner"
+            style="@style/spinnerTheme"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
 
         <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/passwordLogo"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:id="@+id/branchLogo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:src="@drawable/branch_logo" />
 
-        <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/branchSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/icon_spinner_arrow" />
 
         <View
             android:layout_width="match_parent"

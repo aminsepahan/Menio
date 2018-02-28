@@ -3,6 +3,7 @@
     package="io.menio.android">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".utilities.AppController"
@@ -12,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.Menu.MenuActivity"></activity>
+        <activity android:name=".activities.Menu.MenuActivity" />
         <activity
             android:name=".activities.Auth.AuthActivity"
             android:screenOrientation="portrait" />
@@ -35,7 +36,7 @@
         <activity
             android:name=".activities.Auth.Main2Activity"
             android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

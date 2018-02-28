@@ -15,16 +15,45 @@ public class Constants {
     public static boolean clientOrRealtor = true;
 
     // LINKS AND URLs:
-    public static final String API_HOST = "http://pilanza.ir/";
+    public static final String API_HOST = "https://api.menio.io/api/v1/";
     public static Uri.Builder getApiHttpUrlBuilder(boolean withVersion) {
         Uri.Builder builder = Uri.parse(API_HOST).buildUpon();
         return builder;
     }
 
-    public static String getCategoriesUrl() {
+    public static String getLoginUrl() {
         Uri url = getApiHttpUrlBuilder(true)
-                .appendPath("category")
-                .appendPath("GETALLCategoriesApp")
+                .appendPath("restaurant")
+                .appendPath("login")
+                .build();
+        return url.toString();
+    }
+
+    public static String getRestaurant() {
+        Uri url = getApiHttpUrlBuilder(true)
+                .appendPath("restaurant")
+                .appendPath("me")
+                .appendPath("restaurant")
+                .build();
+        return url.toString();
+    }
+
+    public static String getMenuUrl(String locale) {
+        Uri url = getApiHttpUrlBuilder(true)
+                .appendPath("restaurant")
+                .appendPath("menus")
+                .appendQueryParameter("locale", locale)
+                .build();
+        return url.toString();
+    }
+
+    public static String getMenuUrl(String menuId,String locale, String currency) {
+        Uri url = getApiHttpUrlBuilder(true)
+                .appendPath("restaurant")
+                .appendPath("menus")
+                .appendPath(menuId)
+                .appendQueryParameter("locale", locale)
+                .appendQueryParameter("currency", currency)
                 .build();
         return url.toString();
     }
@@ -42,7 +71,16 @@ public class Constants {
     public static String REGIONS = "REGIONS";
     public static String SELECTED_REGION = "SELECTED_REGION";
     public static String SELECTED_REGION_NAME = "SELECTED_REGION_NAME";
+    public static String SELECTED_MENU = "SELECTED_MENU";
     public static String SELECTED_BRANCH = "SELECTED_BRANCH";
+    public static String SELECTED_BRANCH_ID = "SELECTED_BRANCH_ID";
+    public static String SELECTED_BRANCH_NAME = "SELECTED_BRANCH_NAME";
+    public static String SELECTED_LANGUAGE = "SELECTED_LANGUAGE";
+    public static String SELECTED_LANGUAGE_NAME = "SELECTED_LANGUAGE_NAME";
+    public static String SELECTED_LANGUAGE_CODE = "SELECTED_LANGUAGE_CODE";
+    public static String SELECTED_CURRENCY = "SELECTED_CURRENCY";
+    public static String SELECTED_CURRENCY_NAME = "SELECTED_CURRENCY_NAME";
+    public static String SELECTED_CURRENCY_CODE = "SELECTED_CURRENCY_CODE";
     public static String SLIDERS = "SLIDERS";
     public static String PROPERTY_FORM = "PROPERTY_FORM";
     public static String SEARCH_FORM = "SEARCH_FORM";
@@ -123,9 +161,9 @@ public class Constants {
     public static final int NOTIFICATION_CHECK_PERIOD = 30 * 60 * 1000;
     public static boolean DEBUG = true;
 
-    public static final String themeFont = "fonts/IRANSans(FaNum)_Medium.ttf";
-    public static final String themeFontBold = "fonts/IRANSansMobile_Bold.ttf";
-    public static final String themeFontLight = "fonts/IRANSansMobile_Light.ttf";
+    public static final String themeFont = "fonts/theme.ttf";
+    public static final String themeFontBold = "fonts/theme_bold.ttf";
+    public static final String themeFontLight = "fonts/theme_light.ttf";
 
 
     public static String formatPrice(String num) {
@@ -145,16 +183,16 @@ public class Constants {
 
     public static String formatPriceWithCurrency(Long num) {
         DecimalFormat formatter = new DecimalFormat("#,###,###");
-        return formatter.format(num) + " " + AppController.getInstance().getString(R.string.currency_name);
+        return formatter.format(num) + " " + AppController.app.getString(R.string.currency_name);
     }
 
     public static String formatPriceWithCurrency(double num) {
         DecimalFormat formatter = new DecimalFormat("#,###,###");
-        return formatter.format(num) + " " + AppController.getInstance().getString(R.string.currency_name);
+        return formatter.format(num) + " " + AppController.app.getString(R.string.currency_name);
     }
 
     public static String formatPriceWithCurrency(String num) {
         DecimalFormat formatter = new DecimalFormat("#,###,###");
-        return formatter.format(Long.valueOf(num)) + " " + AppController.getInstance().getString(R.string.currency_name);
+        return formatter.format(Long.valueOf(num)) + " " + AppController.app.getString(R.string.currency_name);
     }
 }

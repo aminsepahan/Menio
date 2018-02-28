@@ -2,8 +2,8 @@
 <resources>
     <color name="colorPrimary">#c70037</color>
     <color name="colorPrimaryDark">#9f0731</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="splashScreenBackColor">#FF4081</color>
+    <color name="colorAccent">#fe3a3b</color>
+    <color name="splashScreenBackColor">#c70037</color>
     <color name="textColorBlack">#1c2029</color>
     <color name="themeButtonTextColor">#ffffff</color>
 

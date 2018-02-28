@@ -33,6 +33,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +55,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.menio.android.R;
 
+import static io.menio.android.utilities.AppController.app;
 import static io.menio.android.utilities.Constants.FALSE;
 import static io.menio.android.utilities.Constants.SP_FILE_NAME_BASE;
 import static io.menio.android.utilities.Constants.TRUE;
@@ -258,7 +260,7 @@ and save it to the base location of app, with a folder name taken from string.xm
     public static boolean isDeviceSupportCamera() {
         // this device has a camera
         // no camera on this device
-        return AppController.getInstance().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
+        return app.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
     }
 
     public static void changeTabsFont(TabLayout tabLayout) {
@@ -279,60 +281,8 @@ and save it to the base location of app, with a folder name taken from string.xm
         }
     }
 
-    public static String getSP(String key, String defaultValue) {
-        SharedPreferences sp
-                = AppController
-                .applicationContext
-                .getSharedPreferences(SP_FILE_NAME_BASE, Context.MODE_PRIVATE);
-        return sp.getString(key, defaultValue);
-    }
-
-    public static String getSP(String key) {
-        return getSP(key, FALSE);
-    }
-
-    public static boolean isSet(String key) {
-        return !getSP(key, FALSE).equals(FALSE);
-    }
-
-    public static boolean getSPBoolean(String key) {
-        SharedPreferences sp
-                = AppController
-                .applicationContext
-                .getSharedPreferences(SP_FILE_NAME_BASE, Context.MODE_PRIVATE);
-        return sp.getString(key, FALSE).equals(TRUE);
-    }
-
-    public static int getSPInt(String key) {
-        SharedPreferences sp
-                = AppController
-                .applicationContext
-                .getSharedPreferences(SP_FILE_NAME_BASE, Context.MODE_PRIVATE);
-        return sp.getInt(key, 0);
-    }
-
-    public static void setSP(String key, String value) {
-        SharedPreferences sp
-                = AppController
-                .applicationContext
-                .getSharedPreferences(SP_FILE_NAME_BASE, Context.MODE_PRIVATE);
-        SharedPreferences.Editor spe = sp.edit();
-        spe.putString(key, value);
-        spe.apply();
-    }
-
-    public static void setSPInt(String key, int value) {
-        SharedPreferences sp
-                = AppController
-                .applicationContext
-                .getSharedPreferences(SP_FILE_NAME_BASE, Context.MODE_PRIVATE);
-        SharedPreferences.Editor spe = sp.edit();
-        spe.putInt(key, value);
-        spe.apply();
-    }
-
     public static int dpToPixels(float dp) {
-        final float scale = AppController.getInstance().getResources().getDisplayMetrics().density;
+        final float scale = app.getResources().getDisplayMetrics().density;
         return (int) (dp * scale + 0.5f);
     }
 
@@ -354,9 +304,7 @@ and save it to the base location of app, with a folder name taken from string.xm
     }
 
     public static void setFontForActivity(Activity activity) {
-
         setFontForActivity(activity.findViewById(R.id.root));
-
     }
 
     private static void setFontRecursive(View view, Typeface tf, Typeface tfb, Typeface tfl) {
@@ -395,13 +343,13 @@ and save it to the base location of app, with a folder name taken from string.xm
 
     public static void setAutoCompleteList(String SPKey, AutoCompleteTextView autoCompleteTextView) {
         List<String> autoCompleteList = new ArrayList<>();
-        if (!getSP(SPKey, null).equals(FALSE)) {
+        if (!app.getSP(SPKey, null).equals(FALSE)) {
             try {
-                autoCompleteList = JSON.parseArray(getSP(SPKey, null), String.class);
+                autoCompleteList = JSON.parseArray(app.getSP(SPKey, null), String.class);
             } catch (Exception ignored) {
             }
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(AppController.getInstance()
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(app
                 , android.R.layout.simple_spinner_dropdown_item, autoCompleteList);
 
         autoCompleteTextView.setDropDownBackgroundResource(R.color.black);
@@ -413,9 +361,9 @@ and save it to the base location of app, with a folder name taken from string.xm
 
         List<String> autoCompleteList = new ArrayList<>();
         boolean found = false;
-        if (getSP(SPKey, null) != null) {
+        if (app.getSP(SPKey, null) != null) {
             try {
-                autoCompleteList = JSON.parseArray(getSP(SPKey, null), String.class);
+                autoCompleteList = JSON.parseArray(app.getSP(SPKey, null), String.class);
             } catch (Exception ignored) {
             }
         }
@@ -430,7 +378,7 @@ and save it to the base location of app, with a folder name taken from string.xm
 
         if (!found) {
             autoCompleteList.add(newEntry);
-            setSP(SPKey, JSON.toJSONString(autoCompleteList));
+            app.setSP(SPKey, JSON.toJSONString(autoCompleteList));
         }
     }
 
@@ -582,6 +530,11 @@ and save it to the base location of app, with a folder name taken from string.xm
         }
     }
 
+    public static void setColorForProgress(ProgressBar view, int color){
+        view.getIndeterminateDrawable().setColorFilter(color,
+                android.graphics.PorterDuff.Mode.MULTIPLY);
+    }
+
 
     public static String clearPriceString(String priceTemp) {
 //        priceTemp = priceTemp.replaceAll(",", "");
@@ -618,6 +571,14 @@ and save it to the base location of app, with a folder name taken from string.xm
 
     public static void showError(Activity activity, String message, String action, final Interfaces.CallBack callBack) {
         showError(activity, message, action, callBack, false);
+    }
+
+    public static void showError(Activity activity, String message, int action, final Interfaces.CallBack callBack, boolean indifinite) {
+        showError(activity, message, activity.getString(action), callBack, indifinite);
+    }
+
+    public static void showError(Activity activity, int message, int action, final Interfaces.CallBack callBack, boolean indifinite) {
+        showError(activity, activity.getString(message), activity.getString(action), callBack, indifinite);
     }
 
     public static void showError(Activity activity, String message, String action,

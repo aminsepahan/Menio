@@ -64,6 +64,7 @@
                 android:id="@+id/userName"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:text="amin"
                 android:layout_below="@id/userNameTitle"
                 android:fontFamily="@font/theme_font_family"
                 android:padding="5dp" />
@@ -99,6 +100,7 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:text="123456"
                 android:layout_below="@id/passwordTitle"
                 android:fontFamily="@font/theme_font_family"
                 android:inputType="textPassword"
@@ -106,15 +108,29 @@
 
         </RelativeLayout>
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/loginBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/colorPrimary"
-            android:fontFamily="@font/theme_font_family"
-            android:text="@string/login"
-            android:textColor="@color/themeButtonTextColor" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/loginBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/colorPrimary"
+                android:fontFamily="@font/theme_font_family"
+                android:text="@string/login"
+                android:textColor="@color/themeButtonTextColor" />
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="30dp"
+                android:elevation="9dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                android:layout_height="30dp" />
+        </RelativeLayout>
 
 
     </LinearLayout>

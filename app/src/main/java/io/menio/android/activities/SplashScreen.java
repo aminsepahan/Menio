@@ -8,9 +8,10 @@ import android.view.WindowManager;
 import io.menio.android.R;
 import io.menio.android.activities.Auth.AuthActivity;
 import io.menio.android.activities.Menu.MenuActivity;
+import io.menio.android.utilities.AppController;
 
-import static io.menio.android.utilities.Constants.IS_LOGGED_IN;
-import static io.menio.android.utilities.Snippets.isSet;
+import static io.menio.android.utilities.AppController.*;
+import static io.menio.android.utilities.Constants.*;
 
 /**
  * Created by Melo on 11/10/2016.
@@ -30,9 +31,8 @@ public class SplashScreen extends Activity {
 
 
     public void openApp() {
-        if (isSet(IS_LOGGED_IN)) {
-            MenuActivity.Companion.open(this, true);
-
+        if (app.isSet(IS_LOGGED_IN)) {
+            MenuActivity.Companion.open(this, AppController.app.getMenu().getId() );
         } else {
             AuthActivity.Companion.open(this, true);
         }

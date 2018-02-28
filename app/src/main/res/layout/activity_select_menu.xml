@@ -24,113 +24,67 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="14dp"
         android:fontFamily="@font/theme_font_family"
-        android:text="@string/select_branch"
+        android:text="@string/select_menu"
         android:textColor="@color/textColorBlack"
         android:textStyle="bold" />
 
-    <LinearLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="260dp">
+
+        <LinearLayout
+            android:id="@+id/baseLinLay"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/menu_item_h"
+            android:layout_marginEnd="@dimen/auth_input_h_m"
+            android:orientation="horizontal"
+            android:animateLayoutChanges="true"
+            android:layout_marginStart="@dimen/auth_input_h_m"
+            android:layout_marginTop="20dp" />
+
+        <LinearLayout
+            android:id="@+id/baseLinLay2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/menu_item_h"
+            android:layout_below="@+id/baseLinLay"
+            android:animateLayoutChanges="true"
+            android:layout_marginEnd="@dimen/auth_input_h_m"
+            android:orientation="horizontal"
+            android:layout_marginStart="@dimen/auth_input_h_m"
+            android:layout_marginTop="10dp" />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/auth_input_h_m"
-        android:layout_marginStart="@dimen/auth_input_h_m"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="30dp">
 
-        <RelativeLayout
-            android:id="@+id/menuLay1"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/menu_item_h"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:layout_weight="1">
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/colorPrimary"
+            android:fontFamily="@font/theme_font_family"
+            android:text="@string/confirm"
+            android:textColor="@color/themeButtonTextColor" />
 
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/menuItem1Back"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/menu_item_back_0"/>
-
-
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/menuItem1Back1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha="0"
-                android:src="@drawable/menu_item_back_1"/>
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="20dp"
-                android:src="@drawable/ic_dinner"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/menuLay2"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/menu_item_h"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:layout_weight="1">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/menuItem2Back"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/menu_item_back_0"/>
-
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/menuItem2Back1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha="0"
-                android:src="@drawable/menu_item_back_1"/>
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="20dp"
-                android:src="@drawable/ic_lunch"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/menuLay3"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/menu_item_h"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:layout_weight="1">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/menuItem3Back"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/menu_item_back_0"/>
-
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/menuItem3Back1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha="0"
-                android:src="@drawable/menu_item_back_1"/>
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="20dp"
-                android:src="@drawable/ic_breakfast"/>
-
-        </RelativeLayout>
-    </LinearLayout>
-
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/select"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:fontFamily="@font/theme_font_family"
-        android:text="@string/confirm"
-        android:textColor="@color/themeButtonTextColor" />
+        <ProgressBar
+            android:id="@+id/btnProgress"
+            android:layout_width="30dp"
+            android:elevation="9dp"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:layout_height="30dp" />
+    </RelativeLayout>
 
 
 </LinearLayout>

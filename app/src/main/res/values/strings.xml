@@ -16,4 +16,7 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="username_reqiered">نام کاربری را وارد کنید!</string>
+    <string name="password_reqiered">رمز را وارد کنید!</string>
+    <string name="select_menu">انتخاب منو</string>
 </resources>
