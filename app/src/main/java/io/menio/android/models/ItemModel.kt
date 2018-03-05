@@ -11,6 +11,7 @@ data class ItemModel(@SerializedName("_id") @JSONField(name = "_id") val id: Str
                      val variations: List<VariationModel>,
                      val weight: Int,
                      val price: Double,
+                     var qty: Int,
                      val inventory: InventoryModel,
                      @SerializedName("menu_type_id") @JSONField(name = "menu_type_id") val menuTypeId: String,
                      @SerializedName("menu_id") @JSONField(name = "menu_id") val menuId: String,

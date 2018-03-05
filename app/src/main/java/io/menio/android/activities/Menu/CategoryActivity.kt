@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.IntDef
 import android.support.v4.content.ContextCompat
-import android.support.v4.widget.ImageViewCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -23,6 +22,7 @@ class CategoryActivity : AppCompatActivity(), OnItemClicked {
     var type: Int = GRID_TYPE
 
     private lateinit var modelList: MutableList<ItemModel>
+    val shoppingCartList: MutableList<ItemModel> = emptyList<ItemModel>().toMutableList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +73,28 @@ class CategoryActivity : AppCompatActivity(), OnItemClicked {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+
+    fun updateCart(model: ItemModel, qty: Int) {
+        var isInCart = false
+        if (qty > 0) {
+            shoppingCartList.find { model.id == it.id }.run {
+                isInCart = true
+            }
+            if (!isInCart){
+                shoppingCartList.add(model)
+            }
+        } else {
+            shoppingCartList.remove(model)
+        }
+        updateCartView()
+    }
+
+    private fun updateCartView() {
+        var count = 0
+        shoppingCartList.forEach { count += it.qty }
+        shoppingCartTitle.text = "لیست سفارشات: " + count + " مورد"
+    }
+
     companion object {
         @Retention(AnnotationRetention.SOURCE)
         @IntDef(LIST_TYPE, GRID_TYPE)
@@ -87,4 +109,5 @@ class CategoryActivity : AppCompatActivity(), OnItemClicked {
             activity.startActivity(intent);
         }
     }
+
 }

@@ -11,8 +11,9 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="1"
+        android:layout_above="@+id/bottomLay"
         android:layout_marginTop="180dp"
+        android:alpha="1"
         android:clipToPadding="false"
         android:padding="6dp" />
 
@@ -87,21 +88,21 @@
                 android:layout_width="35dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
-                android:tint="@color/gray_light"
                 android:paddingBottom="11dp"
                 android:paddingTop="11dp"
-                android:src="@drawable/ic_dark_list_view" />
+                android:src="@drawable/ic_dark_list_view"
+                android:tint="@color/gray_light" />
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/gridSwitch"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:tint="@color/colorAccent"
                 android:layout_gravity="center"
                 android:paddingBottom="13dp"
                 android:paddingRight="10dp"
                 android:paddingTop="13dp"
-                android:src="@drawable/ic_dark_grid_view" />
+                android:src="@drawable/ic_dark_grid_view"
+                android:tint="@color/colorAccent" />
         </LinearLayout>
 
 
@@ -147,7 +148,7 @@
             android:gravity="center"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:text="EN"
+            android:text="FA"
             android:textColor="@color/dark_gray"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -172,5 +173,120 @@
             android:src="@drawable/ic_settings_black" />
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottomLay"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/tableIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:padding="5dp"
+            android:src="@drawable/ic_table" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tableNumberTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/tableIcon"
+            android:fontFamily="@font/theme"
+            android:gravity="center"
+            android:paddingRight="5dp"
+            android:text="میز شماره"
+            android:textSize="12dp" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tableNumber"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:layout_toLeftOf="@+id/tableNumberTitle"
+            android:background="@drawable/header_circle_shape"
+            android:backgroundTint="@color/gray"
+            android:fontFamily="@font/theme_bold"
+            android:gravity="center"
+            android:paddingTop="4dp"
+            android:text="13"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/waiterIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:padding="5dp"
+            android:src="@drawable/ic_waiter" />
+
+        <android.support.v7.widget.AppCompatTextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/waiterIcon"
+            android:fontFamily="@font/theme_medium"
+            android:gravity="center"
+            android:text="گارسون!"
+            android:textSize="12dp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_above="@+id/bottomLay"
+        android:background="@drawable/shadow_from_bottom_thin"/>
+
+    <RelativeLayout
+        android:id="@+id/shoppingCartBtnLay"
+        android:layout_width="260dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:elevation="1dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/menu_back_shape"
+        android:backgroundTint="@color/shoppingCartBtnBack">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/shoppingCartIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:padding="14dp"
+            android:src="@drawable/ic_spoon" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/shoppingCartTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/shoppingCartIcon"
+            android:layout_toRightOf="@+id/shoppingCartArrow"
+            android:fontFamily="@font/theme"
+            android:gravity="center"
+            android:text="لیست سفارشات: 4 مورد"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/shoppingCartArrow"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
+            android:padding="16dp"
+            android:src="@drawable/ic_chevron_up" />
+
+
+    </RelativeLayout>
 
 </RelativeLayout>

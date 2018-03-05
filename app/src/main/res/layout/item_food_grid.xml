@@ -3,7 +3,6 @@
     android:id="@+id/cv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical">
 
     <io.menio.android.utilities.SquareRelativeLayout
@@ -79,22 +78,11 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <include
+        layout="@layout/item_cart_options"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp">
-
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/menu_back_shape"
-            android:fontFamily="@font/theme_medium"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/add_to_cart"
-            android:textColor="@color/white" />
-
-    </RelativeLayout>
+        android:layout_height="45dp"
+        android:layout_margin="10dp"
+        android:layout_gravity="center" />
 
 </LinearLayout>

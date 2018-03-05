@@ -99,24 +99,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <RelativeLayout
+
+            <include
                 android:id="@+id/btnLay"
+                layout="@layout/item_cart_options"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_margin="10dp">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/menu_back_shape"
-                    android:fontFamily="@font/theme_medium"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="@string/add_to_cart"
-                    android:textColor="@color/white" />
-
-            </RelativeLayout>
+                android:layout_height="45dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="right" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -146,14 +136,14 @@
                     android:layout_marginTop="-12dp"
                     android:fontFamily="@font/theme"
                     android:gravity="center"
-                    android:letterSpacing="0.15"
+                    android:letterSpacing="0.10"
                     android:maxLines="1"
-                    android:paddingBottom="5dp"
                     android:paddingLeft="2dp"
+                    android:paddingTop="3dp"
                     android:paddingRight="2dp"
                     android:text="....................................................................................................................................................................."
                     android:textColor="@color/dark_gray"
-                    android:textSize="16dp" />
+                    android:textSize="19dp" />
 
             </RelativeLayout>
         </RelativeLayout>

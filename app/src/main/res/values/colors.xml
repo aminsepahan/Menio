@@ -6,6 +6,7 @@
     <color name="splashScreenBackColor">#c70037</color>
     <color name="textColorBlack">#1c2029</color>
     <color name="themeButtonTextColor">#ffffff</color>
+    <color name="shoppingCartBtnBack">#55d683</color>
 
 
     <color name="white">#ffffff</color>
