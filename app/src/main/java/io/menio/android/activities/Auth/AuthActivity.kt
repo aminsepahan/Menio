@@ -59,6 +59,7 @@ class AuthActivity : AppCompatActivity() {
                 (application as AppController).setCurrentUser(Gson().fromJson(json.toString(), MerchantModel::class.java))
                 AppController.app.setSP(USER, json.getString("merchant"))
                 SelectBranchActivity.open(this@AuthActivity, true)
+                finish()
             }
 
             override fun onError(error: VolleyError?, message: String, isOnline: Boolean) {

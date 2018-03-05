@@ -19,4 +19,5 @@
     <string name="username_reqiered">نام کاربری را وارد کنید!</string>
     <string name="password_reqiered">رمز را وارد کنید!</string>
     <string name="select_menu">انتخاب منو</string>
+    <string name="add_to_cart">سفارش</string>
 </resources>

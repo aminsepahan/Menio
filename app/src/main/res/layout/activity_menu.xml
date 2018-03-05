@@ -9,7 +9,8 @@
         android:id="@+id/menuBack"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY" />
+        android:src="@drawable/menu_background_1"
+        android:scaleType="centerCrop" />
 
     <RelativeLayout
         android:id="@+id/baseLay"
@@ -22,6 +23,8 @@
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@id/baseLinLay"
+            android:layout_alignBottom="@+id/baseLinLay"
             android:layout_alignParentBottom="true"
             android:background="@drawable/menu_back_shape"
             android:padding="40dp" />
@@ -35,6 +38,5 @@
             android:orientation="vertical"
             android:padding="40dp" />
     </RelativeLayout>
-
 
 </RelativeLayout>

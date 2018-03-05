@@ -24,11 +24,6 @@ class SelectBranchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_branch)
         showBranches()
-        select.setOnClickListener({
-            downloadModel()
-            AppController.app.setSP(SELECTED_BRANCH_ID, (branchSpinner.selectedItem as RestaurantModel).id)
-            SelectMenuActivity.open(this, intent.getBooleanExtra(IS_FROM_SPLASH, false))
-        })
     }
 
     private fun downloadModel() {
@@ -55,6 +50,12 @@ class SelectBranchActivity : AppCompatActivity() {
         val adapter = RestaurantSpinnerAdapter(this, AppController.app.user!!.restaurants)
         branchSpinner.adapter = adapter
         branchSpinner.setSelection(0)
+        select.setOnClickListener({
+            downloadModel()
+            AppController.app.setSP(SELECTED_BRANCH_ID, (branchSpinner.selectedItem as RestaurantModel).id)
+            SelectMenuActivity.open(this, intent.getBooleanExtra(IS_FROM_SPLASH, false))
+            finish()
+        })
     }
 
     companion object {

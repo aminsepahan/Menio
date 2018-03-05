@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="auth_input_h_m">40dp</dimen>
-    <dimen name="menu_item_h">110dp</dimen>
+    <dimen name="menu_item_h">120dp</dimen>
     <dimen name="menu_image_h">90dp</dimen>
     <dimen name="auth_logo_margin_top">70dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->

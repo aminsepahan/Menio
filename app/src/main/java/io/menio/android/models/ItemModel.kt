@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class ItemModel(@SerializedName("_id") @JSONField(name = "_id") val id: String,
                      val name: String,
                      val type: String,
+                     var ingredients: String = "گوشت، مرغ، پنیر، سس قارچ",
                      val images: List<String>,
                      val variations: List<VariationModel>,
                      val weight: Int,

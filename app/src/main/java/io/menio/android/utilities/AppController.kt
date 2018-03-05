@@ -6,6 +6,7 @@ import android.text.TextUtils
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
+import io.menio.android.models.CategoryModel
 import io.menio.android.models.MenuModel
 import io.menio.android.models.MerchantModel
 import io.menio.android.models.RestaurantModel
@@ -20,35 +21,75 @@ class AppController : Application() {
     val TAG = AppController::class.java
             .simpleName
     private var mRequestQueue: RequestQueue? = null
+
+
+    private var _user: MerchantModel? = null
     var user: MerchantModel?
         get() {
-            if (isSet(USER)) {
-                return Gson().fromJson(getSP(USER), MerchantModel::class.java)
-            } else {
-                throw AssertionError("Set to null by another thread")
+            if (_user == null) {
+                if (isSet(USER)) {
+                    _user = Gson().fromJson(getSP(USER), MerchantModel::class.java)
+                } else {
+                    throw AssertionError("Set to null by another thread")
+                }
             }
+            return _user
         }
-    set(value) { setSP(USER, Gson().toJson(value))}
+        set(value) {
+            _user = value
+            setSP(USER, Gson().toJson(value))
+        }
 
+    private var _category: CategoryModel? = null
+    var category: CategoryModel?
+        get() {
+            if (_category == null) {
+                if (isSet(USER)) {
+                    _category = Gson().fromJson(getSP(USER), CategoryModel::class.java)
+                } else {
+                    throw AssertionError("Set to null by another thread")
+                }
+            }
+            return _category
+        }
+        set(value) {
+            _category = value
+            setSP(USER, Gson().toJson(value))
+        }
+
+    private var _restaurant: RestaurantModel? = null
     var restaurant: RestaurantModel?
         get() {
-            if (isSet(SELECTED_BRANCH)) {
-                return Gson().fromJson(getSP(SELECTED_BRANCH), RestaurantModel::class.java)
-            } else {
-                throw AssertionError("user haven't been set")
+            if (_restaurant == null) {
+                if (isSet(SELECTED_BRANCH)) {
+                    _restaurant = Gson().fromJson(getSP(SELECTED_BRANCH), RestaurantModel::class.java)
+                } else {
+                    throw AssertionError("user haven't been set")
+                }
             }
+            return _restaurant
         }
-    set(value) { setSP(SELECTED_BRANCH, Gson().toJson(value))}
+        set(value) {
+            _restaurant = value
+            setSP(SELECTED_BRANCH, Gson().toJson(value))
+        }
 
+    private var _menu: MenuModel? = null
     var menu: MenuModel?
         get() {
-            if (isSet(SELECTED_MENU)) {
-                return Gson().fromJson(getSP(SELECTED_MENU), MenuModel::class.java)
-            } else {
-                throw AssertionError("user haven't been set")
+            if (_menu == null) {
+                if (isSet(SELECTED_MENU)) {
+                    _menu = Gson().fromJson(getSP(SELECTED_MENU), MenuModel::class.java)
+                } else {
+                    throw AssertionError("user haven't been set")
+                }
             }
+            return _menu
         }
-    set(value) { setSP(SELECTED_MENU, Gson().toJson(value))}
+        set(value) {
+            _menu = value
+            setSP(SELECTED_MENU, Gson().toJson(value))
+        }
 
     override fun onCreate() {
         super.onCreate()

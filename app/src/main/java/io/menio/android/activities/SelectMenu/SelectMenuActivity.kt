@@ -34,9 +34,6 @@ class SelectMenuActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_menu)
-        select.setOnClickListener({
-            downloadSelectedMenu()
-        })
         downloadMenus()
         Snippets.setColorForProgress(btnProgress, resources.getColor(R.color.white))
     }
@@ -53,6 +50,7 @@ class SelectMenuActivity : AppCompatActivity() {
                         AppController.app.menu = Gson().fromJson(json.toString(), MenuModel::class.java)
                         Glide.with(this@SelectMenuActivity).download(AppController.app.menu!!.backgroundUrl)
                         MenuActivity.open(this@SelectMenuActivity,AppController.app.menu!!.id)
+                        finish()
                     }
 
                     override fun onError(error: VolleyError?, message: String, isOnline: Boolean) {
@@ -102,6 +100,10 @@ class SelectMenuActivity : AppCompatActivity() {
                 break
             }
         }
+
+        select.setOnClickListener({
+            downloadSelectedMenu()
+        })
 
     }
 
