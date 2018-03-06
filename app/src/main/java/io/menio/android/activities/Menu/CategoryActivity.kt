@@ -8,9 +8,11 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import com.bumptech.glide.Glide
 import com.github.florent37.viewanimator.ViewAnimator
 import io.menio.android.R
-import io.menio.android.activities.Settings.SettingsActivity
 import io.menio.android.interfaces.OnItemClicked
 import io.menio.android.models.ItemModel
 import io.menio.android.utilities.AppController
@@ -29,11 +31,34 @@ class CategoryActivity : AppCompatActivity(), OnItemClicked {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
         headerTitle.text = AppController.app.category!!.name
+        Glide.with(this).load(AppController.app.category!!.headerImageUrl).into(header)
         modelList = AppController.app.category!!.menuItems
         populateModelList(GRID_TYPE)
         updateCartView()
-        setting.setOnClickListener{ SettingsActivity.open(this, true)}
+        setting.setOnClickListener { AppController.app.passwordDialog(this) }
+        shoppingCartBtnLay.setOnClickListener { openCloseShoppingCart() }
 
+    }
+
+    private fun openCloseShoppingCart() {
+        shoppingCartRV.layoutManager = GridLayoutManager(this, 2)
+        shoppingCartRV.addItemDecoration(ItemDecorationPaddingTop(10))
+        shoppingCartRV.adapter = FoodItemAdapter(this, SHOPPING_LIST_TYPE, this)
+        (shoppingCartRV.adapter as FoodItemAdapter).modelList = shoppingCartList
+        if (shoppingCartCV.visibility == GONE) {
+            if (shoppingCartList.isEmpty()) {
+                return
+            }
+            ViewAnimator.animate(shoppingCartCV).alpha(0.7f, 1f).dp().translationY(+400f, 0f).onStart {
+                shoppingCartCV.visibility = VISIBLE
+                shadow.visibility = VISIBLE
+            }.andAnimate(shoppingCartArrow).duration(500).rotation(180f).andAnimate(shadow).fadeIn().start()
+        } else {
+            ViewAnimator.animate(shoppingCartCV).dp().translationY(0f, 400f).onStop {
+                shoppingCartCV.visibility = GONE
+                shadow.visibility = GONE
+            }.alpha(1f, 0.7f).andAnimate(shoppingCartArrow).duration(500).rotation(180f).andAnimate(shadow).fadeOut().start()
+        }
     }
 
     private fun populateModelList(listType: Int) {
@@ -84,7 +109,7 @@ class CategoryActivity : AppCompatActivity(), OnItemClicked {
                     break
                 }
             }
-            if (!isInCart){
+            if (!isInCart) {
                 shoppingCartList.add(model)
             }
         } else {
@@ -95,27 +120,29 @@ class CategoryActivity : AppCompatActivity(), OnItemClicked {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         updateCartView()
-        if (requestCode == SETTING_REQ_CODE && resultCode == Activity.RESULT_OK){
-            setResult(Activity.RESULT_OK)
+        if (requestCode == SETTING_REQ_CODE &&
+                (resultCode == Activity.RESULT_OK || resultCode == Activity.RESULT_FIRST_USER)) {
+            setResult(resultCode)
             finish()
         }
-        super.onActivityResult(requestCode, resultCode, data)
+
     }
 
     private fun updateCartView() {
         var count = 0
         shoppingCartList.forEach { count += it.qty }
         shoppingCartTitle.text = "لیست سفارشات: " + count + " مورد"
-        tableNumber.text = AppController.app.getSP(TABLE_NUMBER,"1")
+        tableNumber.text = AppController.app.getSP(TABLE_NUMBER, "1")
     }
 
     companion object {
         @Retention(AnnotationRetention.SOURCE)
-        @IntDef(LIST_TYPE, GRID_TYPE)
+        @IntDef(LIST_TYPE, GRID_TYPE, SHOPPING_LIST_TYPE)
         annotation class ListType
 
         const val LIST_TYPE: Int = 0
         const val GRID_TYPE: Int = 1
+        const val SHOPPING_LIST_TYPE: Int = 2
 
         fun open(activity: Activity) {
             val intent = Intent(activity, CategoryActivity::class.java)

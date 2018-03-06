@@ -58,6 +58,7 @@ class AuthActivity : AppCompatActivity() {
                 AppController.app.setSP(ACCESS_TOKEN, json.getString("token"))
                 (application as AppController).setCurrentUser(Gson().fromJson(json.toString(), MerchantModel::class.java))
                 AppController.app.setSP(USER, json.getString("merchant"))
+                AppController.app.setSP(IS_LOGGED_IN, TRUE)
                 SelectBranchActivity.open(this@AuthActivity, true)
                 finish()
             }

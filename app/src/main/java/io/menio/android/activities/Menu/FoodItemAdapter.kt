@@ -12,6 +12,7 @@ import com.github.florent37.viewanimator.ViewAnimator
 import io.menio.android.R
 import io.menio.android.activities.Menu.CategoryActivity.Companion.GRID_TYPE
 import io.menio.android.activities.Menu.CategoryActivity.Companion.LIST_TYPE
+import io.menio.android.activities.Menu.CategoryActivity.Companion.SHOPPING_LIST_TYPE
 import io.menio.android.interfaces.CartUpdate
 import io.menio.android.interfaces.OnItemClicked
 import io.menio.android.models.CartUpdateEvent
@@ -20,6 +21,7 @@ import io.menio.android.utilities.Constants
 import kotlinx.android.synthetic.main.item_cart_options.view.*
 import kotlinx.android.synthetic.main.item_food_grid.view.*
 import kotlinx.android.synthetic.main.item_food_list.view.*
+import kotlinx.android.synthetic.main.item_food_shopping_cart.view.*
 
 /**
  * Created by Amin on 26/11/2017.
@@ -36,6 +38,8 @@ class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, v
                     .inflate(R.layout.item_food_grid, parent, false), clickListener, type, activity)
             LIST_TYPE -> ViewHolder(LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_food_list, parent, false), clickListener, type, activity)
+            SHOPPING_LIST_TYPE -> ViewHolder(LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_food_shopping_cart, parent, false), clickListener, type, activity)
             else -> {
                 ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_category, parent, false),
                         clickListener, type, activity)
@@ -45,9 +49,10 @@ class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, v
 
     override fun onBindViewHolder(holder: FoodItemAdapter.ViewHolder, position: Int) {
         when (type) {
-            GRID_TYPE -> holder.bindItemsGrid(modelList!![position], type)
-            LIST_TYPE -> holder.bindItemsGrid(modelList!![position], type)
-            else -> holder.bindItemsGrid(modelList!![position], type)
+            GRID_TYPE -> holder.bindItems(modelList!![position], type)
+            LIST_TYPE -> holder.bindItems(modelList!![position], type)
+            SHOPPING_LIST_TYPE -> holder.bindItems(modelList!![position], type)
+            else -> holder.bindItems(modelList!![position], type)
         }
     }
 
@@ -62,17 +67,28 @@ class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, v
     class ViewHolder(itemView: View?, private val clickListener: OnItemClicked, type: Int, val activity: Activity) :
             RecyclerView.ViewHolder(itemView) {
 
-        fun bindItemsGrid(model: ItemModel, type: Int) {
+        fun bindItems(model: ItemModel, type: Int) {
 
-            if (type == LIST_TYPE) {
-                itemView.title.text = model.name
-                itemView.price.text = Constants.formatPriceWithCurrency(model.price)
-                Glide.with(activity).load(model.thumbnailUrl).into(itemView.image)
-                itemView.ingredients.text = model.ingredients
-            } else {
-                itemView.gridTitle.text = model.name
-                itemView.gridPrice.text = Constants.formatPriceWithCurrency(model.price)
-                Glide.with(activity).load(model.thumbnailUrl).into(itemView.gridImage)
+            when (type) {
+                LIST_TYPE -> {
+                    itemView.title.text = model.name
+                    itemView.price.text = Constants.formatPriceWithCurrency(model.price)
+                    Glide.with(activity).load(model.thumbnailUrl).into(itemView.image)
+                    itemView.ingredients.text = model.ingredient
+                }
+                GRID_TYPE -> {
+                    itemView.gridTitle.text = model.name
+                    itemView.gridPrice.text = Constants.formatPriceWithCurrency(model.price)
+                    Glide.with(activity).load(model.thumbnailUrl).into(itemView.gridImage)
+                }
+                SHOPPING_LIST_TYPE -> {
+                    itemView.titleShoppingCart.text = model.name
+                    itemView.priceShoppingCart.text = Constants.formatPriceWithCurrency(model.price)
+                    Glide.with(activity).load(model.thumbnailUrl).into(itemView.imageShoppingCart)
+                }
+                else -> {
+
+                }
             }
             if (model.qty == 0) {
                 itemView.cartTitle.visibility = VISIBLE

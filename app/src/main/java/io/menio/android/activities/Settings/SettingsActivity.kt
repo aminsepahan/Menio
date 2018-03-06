@@ -4,8 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.EditText
+import com.afollestad.materialdialogs.MaterialDialog
 import com.android.volley.VolleyError
 import com.bumptech.glide.Glide
 import com.github.florent37.viewanimator.ViewAnimator
@@ -13,10 +17,12 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.squareup.picasso.Picasso
 import io.menio.android.R
+import io.menio.android.activities.Auth.AuthActivity
 import io.menio.android.activities.Menu.MenuActivity
 import io.menio.android.interfaces.NetResponseJson
 import io.menio.android.models.MenuModel
 import io.menio.android.utilities.AppController
+import io.menio.android.utilities.Constants
 import io.menio.android.utilities.Constants.*
 import io.menio.android.utilities.NetworkRequests
 import io.menio.android.utilities.Snippets
@@ -36,6 +42,45 @@ class SettingsActivity : AppCompatActivity() {
         tableNumber.setText(AppController.app.getSP(TABLE_NUMBER, "1"))
         downloadMenus()
         Snippets.setColorForProgress(btnProgress, resources.getColor(R.color.white))
+        logout.setOnClickListener { performLogout() }
+        changePassword.setOnClickListener { performChangePassword() }
+    }
+
+    private fun performChangePassword() {
+        val convertView = LayoutInflater.from(this)
+                .inflate(R.layout.dialog_check_password, null, false)
+        val input = convertView.findViewById<View>(R.id.input) as EditText
+        input.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                input.error = ""
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+        })
+        MaterialDialog.Builder(this).customView(convertView, true)
+                .onPositive { _, _ -> run{
+                    if(input.text.isNotEmpty())
+                        AppController.app.setSP(USER_PASS, input.text.toString())
+                    else
+                        input.error = getString(R.string.wrong_password)
+                } }.positiveText(getString(R.string.confirm))
+                .buttonRippleColor(resources.getColor(R.color.colorPrimaryDark))
+                .negativeColor(resources.getColor(R.color.colorPrimaryDark))
+                .positiveColor(resources.getColor(R.color.colorPrimaryDark))
+                .negativeText(getString(R.string.cancel))
+                .typeface("theme.ttf", "theme_light.ttf").build().show()
+    }
+
+    private fun performLogout() {
+        AppController.app.setSP(IS_LOGGED_IN, FALSE)
+        setResult(Activity.RESULT_FIRST_USER)
+        AuthActivity.open(this, false)
+        finish()
     }
 
     private fun downloadMenus() {
@@ -133,9 +178,8 @@ class SettingsActivity : AppCompatActivity() {
 
     companion object {
 
-        fun open(activity: Activity, isFromCategoryActivity: Boolean) {
+        fun open(activity: Activity) {
             val intent = Intent(activity, SettingsActivity::class.java)
-            intent.putExtra(IS_FROM_CATEGORY, isFromCategoryActivity)
             activity.startActivityForResult(intent, SETTING_REQ_CODE);
         }
     }

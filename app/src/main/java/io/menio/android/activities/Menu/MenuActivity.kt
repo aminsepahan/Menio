@@ -22,13 +22,12 @@ class MenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
         populateMenu()
-        setting.setOnClickListener { SettingsActivity.open(this, false) }
+        setting.setOnClickListener{ AppController.app.passwordDialog(this)}
     }
 
     private fun populateMenu() {
         baseLinLay.removeAllViews()
-//        Glide.with(this).load(AppController.app.menu!!.backgroundUrl).into(menuBack)
-        Glide.with(this).load(R.drawable.menu_background_1).into(menuBack)
+        Glide.with(this).load(AppController.app.menu!!.backgroundUrl).into(menuBack)
         for (category in AppController.app.menu!!.categories) {
             var row = LayoutInflater.from(this).inflate(R.layout.item_category, baseLinLay, false)
             row.title.text = category.name
@@ -46,6 +45,8 @@ class MenuActivity : AppCompatActivity() {
         if ((requestCode == EDIT_REQ_CODE || requestCode == SETTING_REQ_CODE)
                 && resultCode == Activity.RESULT_OK) {
             populateMenu()
+        } else if (resultCode == Activity.RESULT_FIRST_USER){
+            finish()
         }
     }
 

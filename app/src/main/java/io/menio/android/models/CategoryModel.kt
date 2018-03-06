@@ -10,5 +10,6 @@ data class CategoryModel(@SerializedName("_id") @JSONField(name = "_id") val id:
                          @SerializedName("menu_id") @JSONField(name = "menu_id") val menuId: String,
                          @SerializedName("thumbnail_url") @JSONField(name = "thumbnail_url") val thumbnailUrl: String,
                          @SerializedName("thumbnail_small_url") @JSONField(name = "thumbnail_url") val thumbnailSmallUrl: String,
+                         @SerializedName("header_image_url") @JSONField(name = "header_image_url") val headerImageUrl: String,
                          @SerializedName("menu_items") @JSONField(name = "menu_items") val menuItems: MutableList<ItemModel>,
                          @SerializedName("is_active") @JSONField(name = "is_active") val isActive: Boolean)

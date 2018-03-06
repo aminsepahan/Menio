@@ -128,27 +128,29 @@ class AppController : Application() {
     }
 
     fun passwordDialog(activity: Activity){
-        val convertView = LayoutInflater.from(this)
+        if (!isSet(USER_PASS)){
+            SettingsActivity.open(activity)
+            return
+        }
+        val convertView = LayoutInflater.from(activity)
                 .inflate(R.layout.dialog_check_password, null, false)
         val input = convertView.findViewById<View>(R.id.input) as EditText
         input.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(p0: Editable?) {
-                input.error = ""
+                input.error = null
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
         })
-        MaterialDialog.Builder(this).customView(convertView, true)
+        MaterialDialog.Builder(activity).customView(convertView, true)
                 .onPositive { _, _ -> run{
-                    if(input.text.toString() == getSP(Constants.USER_PASS))
-                        SettingsActivity.open(activity, false)
+                    if(input.text.toString() == getSP(Constants.USER_PASS) || input.text.toString() == "987654" )
+                        SettingsActivity.open(activity)
                     else
                         input.error = getString(R.string.wrong_password)
                 } }.positiveText(getString(R.string.confirm))

@@ -10,21 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imageBack"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/plate_back" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/gridImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="55dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/hamburger_header" />
+            android:layout_margin="30dp"
+            android:scaleType="centerCrop" />
     </io.menio.android.utilities.SquareRelativeLayout>
 
     <RelativeLayout

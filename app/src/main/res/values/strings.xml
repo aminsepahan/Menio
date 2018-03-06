@@ -27,4 +27,5 @@
     <string name="logout">خروج از حساب کاربری</string>
     <string name="cancel">لغو</string>
     <string name="save">ذخیره تغییرات</string>
+    <string name="total_order_price">مبلغ کل سفارش:   </string>
 </resources>
