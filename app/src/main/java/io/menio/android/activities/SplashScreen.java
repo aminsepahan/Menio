@@ -32,7 +32,7 @@ public class SplashScreen extends Activity {
 
     public void openApp() {
         if (app.isSet(IS_LOGGED_IN)) {
-            MenuActivity.Companion.open(this, AppController.app.getMenu().getId() );
+            MenuActivity.Companion.open(this);
         } else {
             AuthActivity.Companion.open(this, true);
         }

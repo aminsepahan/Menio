@@ -1,11 +1,20 @@
 package io.menio.android.utilities
 
+import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.EditText
+import com.afollestad.materialdialogs.MaterialDialog
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
+import io.menio.android.R
+import io.menio.android.activities.Settings.SettingsActivity
 import io.menio.android.models.CategoryModel
 import io.menio.android.models.MenuModel
 import io.menio.android.models.MerchantModel
@@ -88,7 +97,10 @@ class AppController : Application() {
         }
         set(value) {
             _menu = value
-            setSP(SELECTED_MENU, Gson().toJson(value))
+            if (value != null) {
+                setSP(SELECTED_MENU, Gson().toJson(value))
+                AppController.app.setSP(SELECTED_MENU_ID, value.id)
+            }
         }
 
     override fun onCreate() {
@@ -113,6 +125,39 @@ class AppController : Application() {
         if (mRequestQueue != null) {
             mRequestQueue!!.cancelAll(tag)
         }
+    }
+
+    fun passwordDialog(activity: Activity){
+        val convertView = LayoutInflater.from(this)
+                .inflate(R.layout.dialog_check_password, null, false)
+        val input = convertView.findViewById<View>(R.id.input) as EditText
+        input.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(p0: Editable?) {
+                input.error = ""
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+        })
+        MaterialDialog.Builder(this).customView(convertView, true)
+                .onPositive { _, _ -> run{
+                    if(input.text.toString() == getSP(Constants.USER_PASS))
+                        SettingsActivity.open(activity, false)
+                    else
+                        input.error = getString(R.string.wrong_password)
+                } }.positiveText(getString(R.string.confirm))
+                .buttonRippleColor(resources.getColor(R.color.colorPrimaryDark))
+                .negativeColor(resources.getColor(R.color.colorPrimaryDark))
+                .positiveColor(resources.getColor(R.color.colorPrimaryDark))
+                .negativeText(getString(R.string.back))
+                .typeface("theme.ttf", "theme_light.ttf").build().show()
+
     }
 
     fun setCurrentUser(user: MerchantModel) {

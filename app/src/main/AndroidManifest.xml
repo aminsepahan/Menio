@@ -37,7 +37,8 @@
             android:name=".activities.Auth.Main2Activity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activities.Menu.CategoryActivity"></activity>
+        <activity android:name=".activities.Menu.CategoryActivity" />
+        <activity android:name=".activities.Settings.SettingsActivity"></activity>
     </application>
 
 </manifest>

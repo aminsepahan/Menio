@@ -72,6 +72,7 @@ public class Constants {
     public static String SELECTED_REGION = "SELECTED_REGION";
     public static String SELECTED_REGION_NAME = "SELECTED_REGION_NAME";
     public static String SELECTED_MENU = "SELECTED_MENU";
+    public static String SELECTED_MENU_ID = "SELECTED_MENU_ID";
     public static String SELECTED_BRANCH = "SELECTED_BRANCH";
     public static String SELECTED_BRANCH_ID = "SELECTED_BRANCH_ID";
     public static String SELECTED_BRANCH_NAME = "SELECTED_BRANCH_NAME";
@@ -81,6 +82,7 @@ public class Constants {
     public static String SELECTED_CURRENCY = "SELECTED_CURRENCY";
     public static String SELECTED_CURRENCY_NAME = "SELECTED_CURRENCY_NAME";
     public static String SELECTED_CURRENCY_CODE = "SELECTED_CURRENCY_CODE";
+    public static String TABLE_NUMBER = "TABLE_NUMBER";
     public static String SLIDERS = "SLIDERS";
     public static String PROPERTY_FORM = "PROPERTY_FORM";
     public static String SEARCH_FORM = "SEARCH_FORM";
@@ -119,6 +121,7 @@ public class Constants {
     public static String IS_LOGGED_IN = "IS_LOGGED_IN";
     public static String LIKED = "LIKED";
     public static String IS_FROM_SPLASH = "IS_FROM_SPLASH";
+    public static String IS_FROM_CATEGORY = "IS_FROM_CATEGORY";
     public static String IS_SHOPPING_LIST = "IS_SHOPPING_LIST";
     public static String USER_ID = "USER_ID";
     public static String USER_NAME = "USER_NAME";
@@ -154,6 +157,7 @@ public class Constants {
     public static final int PRODUCT_ADD_TO_CART = 102;
     public static final int COMPLETE_ORDER = 103;
     public static final int LOGIN_SIGNUP = 104;
+    public static final int SETTING_REQ_CODE = 105;
     public static final int GPS_SETTING_REQUEST_CODE = 9002;
     public static final int VOLLEY_TIME_OUT = 90000;
     public static final int ITEM_IN_PAGE_COUNT = 10;

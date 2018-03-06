@@ -10,10 +10,11 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import com.github.florent37.viewanimator.ViewAnimator
 import io.menio.android.R
+import io.menio.android.activities.Settings.SettingsActivity
 import io.menio.android.interfaces.OnItemClicked
 import io.menio.android.models.ItemModel
 import io.menio.android.utilities.AppController
-import io.menio.android.utilities.Constants
+import io.menio.android.utilities.Constants.*
 import io.menio.android.utilities.ItemDecorationPaddingTop
 import kotlinx.android.synthetic.main.activity_category.*
 
@@ -30,12 +31,12 @@ class CategoryActivity : AppCompatActivity(), OnItemClicked {
         headerTitle.text = AppController.app.category!!.name
         modelList = AppController.app.category!!.menuItems
         populateModelList(GRID_TYPE)
+        updateCartView()
+        setting.setOnClickListener{ SettingsActivity.open(this, true)}
 
     }
 
     private fun populateModelList(listType: Int) {
-        modelList = (modelList + modelList).toMutableList()
-        modelList = (modelList + modelList).toMutableList()
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         recyclerView.addItemDecoration(ItemDecorationPaddingTop(60))
         recyclerView.adapter = FoodItemAdapter(this, listType, this)
@@ -77,8 +78,11 @@ class CategoryActivity : AppCompatActivity(), OnItemClicked {
     fun updateCart(model: ItemModel, qty: Int) {
         var isInCart = false
         if (qty > 0) {
-            shoppingCartList.find { model.id == it.id }.run {
-                isInCart = true
+            for (itemModel in shoppingCartList) {
+                if (itemModel.id == model.id) {
+                    isInCart = true
+                    break
+                }
             }
             if (!isInCart){
                 shoppingCartList.add(model)
@@ -89,10 +93,20 @@ class CategoryActivity : AppCompatActivity(), OnItemClicked {
         updateCartView()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        updateCartView()
+        if (requestCode == SETTING_REQ_CODE && resultCode == Activity.RESULT_OK){
+            setResult(Activity.RESULT_OK)
+            finish()
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
     private fun updateCartView() {
         var count = 0
         shoppingCartList.forEach { count += it.qty }
         shoppingCartTitle.text = "لیست سفارشات: " + count + " مورد"
+        tableNumber.text = AppController.app.getSP(TABLE_NUMBER,"1")
     }
 
     companion object {
@@ -103,10 +117,9 @@ class CategoryActivity : AppCompatActivity(), OnItemClicked {
         const val LIST_TYPE: Int = 0
         const val GRID_TYPE: Int = 1
 
-        fun open(activity: Activity, categoryId: String) {
+        fun open(activity: Activity) {
             val intent = Intent(activity, CategoryActivity::class.java)
-            intent.putExtra(Constants.ID, categoryId)
-            activity.startActivity(intent);
+            activity.startActivityForResult(intent, EDIT_REQ_CODE);
         }
     }
 

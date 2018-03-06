@@ -92,7 +92,7 @@ class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, v
         }
 
         private fun addToCartClicked(model: ItemModel) {
-            model.qty == 1
+            model.qty = 1
             ViewAnimator.animate(itemView.cartTitle).fadeOut().andAnimate(itemView.cartOptionsLay).fadeIn().duration(200).onStart {
                 itemView.cartOptionsLay.visibility = VISIBLE
                 itemView.cartTitle.setOnClickListener {}
@@ -115,6 +115,7 @@ class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, v
                 if (model.qty > 0) {
                     itemView.cartQty.text = model.qty.toString()
                 } else {
+                    model.qty = 0
                     ViewAnimator.animate(itemView.cartTitle).fadeIn().andAnimate(itemView.cartOptionsLay)
                             .fadeOut().duration(200).onStart {
                                 itemView.cartTitle.visibility = VISIBLE

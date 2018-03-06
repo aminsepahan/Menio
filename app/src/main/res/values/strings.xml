@@ -20,4 +20,11 @@
     <string name="password_reqiered">رمز را وارد کنید!</string>
     <string name="select_menu">انتخاب منو</string>
     <string name="add_to_cart">سفارش</string>
+    <string name="enter_password">رمز را وارد کنید</string>
+    <string name="wrong_password">رمز اشتباه است</string>
+    <string name="back">بازگشت</string>
+    <string name="change_password">تغییر رمز عبور</string>
+    <string name="logout">خروج از حساب کاربری</string>
+    <string name="cancel">لغو</string>
+    <string name="save">ذخیره تغییرات</string>
 </resources>
