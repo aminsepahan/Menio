@@ -79,7 +79,7 @@
             android:fontFamily="@font/theme_bold"
             android:gravity="center"
             android:paddingRight="5dp"
-            android:text="میز شماره"
+            android:text="@string/table_number"
             android:textSize="14sp" />
 
         <android.support.v7.widget.AppCompatEditText
