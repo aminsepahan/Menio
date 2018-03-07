@@ -18,11 +18,10 @@ import com.google.gson.reflect.TypeToken
 import com.squareup.picasso.Picasso
 import io.menio.android.R
 import io.menio.android.activities.Auth.AuthActivity
-import io.menio.android.activities.Menu.MenuActivity
 import io.menio.android.interfaces.NetResponseJson
 import io.menio.android.models.MenuModel
 import io.menio.android.utilities.AppController
-import io.menio.android.utilities.Constants
+import io.menio.android.utilities.BaseActivity
 import io.menio.android.utilities.Constants.*
 import io.menio.android.utilities.NetworkRequests
 import io.menio.android.utilities.Snippets
@@ -30,7 +29,7 @@ import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.item_menu.view.*
 import org.json.JSONObject
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : BaseActivity() {
 
 
     private var selectedItem: View? = null;
@@ -85,7 +84,7 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun downloadMenus() {
         progress.visibility = View.VISIBLE
-        NetworkRequests.getRequestJson(getMenuUrl(AppController.app.getSP(SELECTED_LANGUAGE_CODE)),
+        NetworkRequests.getRequestJson(getAllMenusUrl(),
                 object : NetResponseJson {
                     override fun onResponse(json: JSONObject) {
                         progress.visibility = View.GONE
@@ -154,8 +153,7 @@ class SettingsActivity : AppCompatActivity() {
     private fun downloadSelectedMenu() {
         btnProgress.visibility = View.VISIBLE
         save.text = ""
-        NetworkRequests.getRequestJson(getMenuUrl(selectedItem!!.tag as String,
-                AppController.app.getSP(SELECTED_LANGUAGE_CODE), AppController.app.getSP(SELECTED_CURRENCY_CODE)),
+        NetworkRequests.getRequestJson(getMenuUrl(selectedItem!!.tag as String),
                 object : NetResponseJson {
                     override fun onResponse(json: JSONObject) {
                         btnProgress.visibility = View.GONE

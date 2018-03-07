@@ -17,27 +17,27 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/menu_item_h"
             android:layout_marginEnd="@dimen/auth_input_h_m"
-            android:orientation="horizontal"
-            android:animateLayoutChanges="true"
             android:layout_marginStart="@dimen/auth_input_h_m"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:animateLayoutChanges="true"
+            android:orientation="horizontal" />
 
         <LinearLayout
             android:id="@+id/baseLinLay2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/menu_item_h"
             android:layout_below="@+id/baseLinLay"
-            android:animateLayoutChanges="true"
             android:layout_marginEnd="@dimen/auth_input_h_m"
-            android:orientation="horizontal"
             android:layout_marginStart="@dimen/auth_input_h_m"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:animateLayoutChanges="true"
+            android:orientation="horizontal" />
 
         <ProgressBar
             android:id="@+id/progress"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true" />
     </RelativeLayout>
 
     <android.support.v7.widget.AppCompatTextView
@@ -61,7 +61,6 @@
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:layoutDirection="rtl"
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatImageView
@@ -91,17 +90,19 @@
             android:layout_marginRight="18dp"
             android:fontFamily="@font/theme_bold"
             android:gravity="right"
-            android:textDirection="ltr"
-            android:minWidth="40dp"
-            android:selectAllOnFocus="true"
-            android:paddingTop="4dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="5dp"
-            android:maxLength="3"
             android:inputType="numberDecimal"
+            android:maxLength="3"
+            android:minWidth="40dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="10dp"
+            android:paddingTop="4dp"
+            android:selectAllOnFocus="true"
             android:text="1"
             android:textColor="@color/dark_gray"
+            android:textDirection="ltr"
             android:textSize="15dp" />
+
+
     </LinearLayout>
 
     <android.support.v7.widget.AppCompatTextView
@@ -125,23 +126,41 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:layoutDirection="rtl"
         android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:foreground="?android:attr/selectableItemBackground">
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/theme_bold"
+                android:text="@string/logout"
+                android:textSize="14sp" />
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:src="@drawable/user_name_logo"
+                android:tint="@color/dark_gray" />
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/changePassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:foreground="?android:attr/selectableItemBackground"
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:src="@drawable/password_logo"
-                android:tint="@color/dark_gray" />
+            android:layout_marginEnd="10dp"
+            android:foreground="?android:attr/selectableItemBackground">
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -151,32 +170,16 @@
                 android:text="@string/change_password"
                 android:textSize="14sp" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:layout_gravity="center"
-            android:layout_marginRight="10dp">
-
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="center"
-                android:src="@drawable/user_name_logo"
+                android:src="@drawable/password_logo"
                 android:tint="@color/dark_gray" />
 
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/theme_bold"
-                android:text="@string/logout"
-                android:textSize="14sp" />
 
         </LinearLayout>
+
     </LinearLayout>
 
 
@@ -184,8 +187,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layoutDirection="rtl"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="30dp"
+        android:layoutDirection="rtl">
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/cancel"
@@ -193,9 +196,9 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:padding="15dp"
             android:backgroundTint="@color/gray"
             android:fontFamily="@font/theme_font_family"
+            android:padding="15dp"
             android:text="@string/cancel"
             android:textColor="@color/themeButtonTextColor" />
 
@@ -208,9 +211,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="15dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:fontFamily="@font/theme_font_family"
+                android:padding="15dp"
                 android:text="@string/save"
                 android:textColor="@color/themeButtonTextColor" />
 

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.IntDef
 import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View.GONE
@@ -16,16 +15,17 @@ import io.menio.android.R
 import io.menio.android.interfaces.OnItemClicked
 import io.menio.android.models.ItemModel
 import io.menio.android.utilities.AppController
+import io.menio.android.utilities.BaseActivity
+import io.menio.android.utilities.Constants
 import io.menio.android.utilities.Constants.*
 import io.menio.android.utilities.ItemDecorationPaddingTop
 import kotlinx.android.synthetic.main.activity_category.*
 
-class CategoryActivity : AppCompatActivity(), OnItemClicked {
+class CategoryActivity : BaseActivity(), OnItemClicked {
 
     var type: Int = GRID_TYPE
 
     private lateinit var modelList: MutableList<ItemModel>
-    val shoppingCartList: MutableList<ItemModel> = emptyList<ItemModel>().toMutableList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,27 +37,40 @@ class CategoryActivity : AppCompatActivity(), OnItemClicked {
         updateCartView()
         setting.setOnClickListener { AppController.app.passwordDialog(this) }
         shoppingCartBtnLay.setOnClickListener { openCloseShoppingCart() }
+        language.text = AppController.app.language!!.code
+        language.setOnClickListener { AppController.app.changeLanguage(this) }
+        shoppingCartRV.layoutManager = GridLayoutManager(this, 2)
+        shoppingCartRV.adapter = FoodItemAdapter(this, SHOPPING_LIST_TYPE, this)
+        backToMenus.setOnClickListener { onBackPressed() }
 
     }
 
     private fun openCloseShoppingCart() {
-        shoppingCartRV.layoutManager = GridLayoutManager(this, 2)
-        shoppingCartRV.addItemDecoration(ItemDecorationPaddingTop(10))
-        shoppingCartRV.adapter = FoodItemAdapter(this, SHOPPING_LIST_TYPE, this)
-        (shoppingCartRV.adapter as FoodItemAdapter).modelList = shoppingCartList
+        (shoppingCartRV.adapter as FoodItemAdapter).modelList = AppController.app.shoppingCartList
+        shoppingCartRV.adapter.notifyDataSetChanged()
         if (shoppingCartCV.visibility == GONE) {
-            if (shoppingCartList.isEmpty()) {
+            if (AppController.app.shoppingCartList.isEmpty()) {
                 return
             }
             ViewAnimator.animate(shoppingCartCV).alpha(0.7f, 1f).dp().translationY(+400f, 0f).onStart {
                 shoppingCartCV.visibility = VISIBLE
                 shadow.visibility = VISIBLE
+                shadow.setOnClickListener { onBackPressed() }
             }.andAnimate(shoppingCartArrow).duration(500).rotation(180f).andAnimate(shadow).fadeIn().start()
         } else {
             ViewAnimator.animate(shoppingCartCV).dp().translationY(0f, 400f).onStop {
                 shoppingCartCV.visibility = GONE
                 shadow.visibility = GONE
-            }.alpha(1f, 0.7f).andAnimate(shoppingCartArrow).duration(500).rotation(180f).andAnimate(shadow).fadeOut().start()
+                shadow.setOnClickListener {  }
+            }.alpha(1f, 0.7f).andAnimate(shoppingCartArrow).duration(500).rotation(0f).andAnimate(shadow).fadeOut().start()
+        }
+    }
+
+    override fun onBackPressed() {
+        if (shoppingCartCV.visibility == VISIBLE) {
+            openCloseShoppingCart()
+        } else {
+            super.onBackPressed()
         }
     }
 
@@ -103,17 +116,17 @@ class CategoryActivity : AppCompatActivity(), OnItemClicked {
     fun updateCart(model: ItemModel, qty: Int) {
         var isInCart = false
         if (qty > 0) {
-            for (itemModel in shoppingCartList) {
+            for (itemModel in AppController.app.shoppingCartList) {
                 if (itemModel.id == model.id) {
                     isInCart = true
                     break
                 }
             }
             if (!isInCart) {
-                shoppingCartList.add(model)
+                AppController.app.shoppingCartList.add(model)
             }
         } else {
-            shoppingCartList.remove(model)
+            AppController.app.shoppingCartList.remove(model)
         }
         updateCartView()
     }
@@ -130,9 +143,22 @@ class CategoryActivity : AppCompatActivity(), OnItemClicked {
 
     private fun updateCartView() {
         var count = 0
-        shoppingCartList.forEach { count += it.qty }
-        shoppingCartTitle.text = "لیست سفارشات: " + count + " مورد"
+        var total: Double = 0.0
+        AppController.app.shoppingCartList.forEach {
+            count += it.qty
+            total += it.qty * it.price
+        }
+        shoppingCartTitle.text = resources.getQuantityString(R.plurals.order_list, 1, count)
+        shoppingCartTotal.text = Constants.formatPriceWithCurrency(total.toInt().toString())
         tableNumber.text = AppController.app.getSP(TABLE_NUMBER, "1")
+    }
+
+
+    fun languageChanged() {
+        val data = Intent()
+        data.putExtra(SELECTED_LANGUAGE, true)
+        setResult(Activity.RESULT_CANCELED, data)
+        finish()
     }
 
     companion object {
@@ -149,5 +175,6 @@ class CategoryActivity : AppCompatActivity(), OnItemClicked {
             activity.startActivityForResult(intent, EDIT_REQ_CODE);
         }
     }
+
 
 }

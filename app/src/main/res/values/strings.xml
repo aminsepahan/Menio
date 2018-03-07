@@ -27,5 +27,17 @@
     <string name="logout">خروج از حساب کاربری</string>
     <string name="cancel">لغو</string>
     <string name="save">ذخیره تغییرات</string>
-    <string name="total_order_price">مبلغ کل سفارش:   </string>
+    <string name="total_order_price">مبلغ کل سفارش:  </string>
+    <string name="select_your_language">Select Your Language</string>
+    <string name="choose">Select</string>
+    <string name="choose_en">Select</string>
+    <string name="back_en">Back</string>
+    <string name="waiter">گارسون!</string>
+    <string name="table_number">میز شماره</string>
+    <string name="menus">منوی غذاها</string>
+    <string name="more_info">اطلاعات بیشتر</string>
+    <plurals name="order_list">
+        <item quantity="one">لیست سفارشات: %d مورد</item>
+        <item quantity="other">لیست سفارشات: %d مورد</item>
+    </plurals>
 </resources>

@@ -1,6 +1,7 @@
 package io.menio.android.activities.SelectMenu
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -20,6 +21,7 @@ import io.menio.android.interfaces.NetResponseJson
 import io.menio.android.models.MenuModel
 import io.menio.android.utilities.AppController
 import io.menio.android.utilities.Constants.*
+import io.menio.android.utilities.LocaleHelper
 import io.menio.android.utilities.NetworkRequests
 import io.menio.android.utilities.Snippets
 import kotlinx.android.synthetic.main.activity_select_menu.*
@@ -38,11 +40,14 @@ class SelectMenuActivity : AppCompatActivity() {
         Snippets.setColorForProgress(btnProgress, resources.getColor(R.color.white))
     }
 
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(LocaleHelper.onAttach(base))
+    }
+
     private fun downloadSelectedMenu() {
         btnProgress.visibility = VISIBLE
         select.text = ""
-        NetworkRequests.getRequestJson(getMenuUrl(selectedItem!!.tag as String,
-                AppController.app.getSP(SELECTED_LANGUAGE_CODE), AppController.app.getSP(SELECTED_CURRENCY_CODE)),
+        NetworkRequests.getRequestJson(getMenuUrl(selectedItem!!.tag as String),
                 object : NetResponseJson {
                     override fun onResponse(json: JSONObject) {
                         btnProgress.visibility = GONE
@@ -66,7 +71,7 @@ class SelectMenuActivity : AppCompatActivity() {
 
     private fun downloadMenus() {
         progress.visibility = VISIBLE
-        NetworkRequests.getRequestJson(getMenuUrl(AppController.app.getSP(SELECTED_LANGUAGE_CODE)),
+        NetworkRequests.getRequestJson(getAllMenusUrl(),
                 object : NetResponseJson {
                     override fun onResponse(json: JSONObject) {
                         progress.visibility = GONE

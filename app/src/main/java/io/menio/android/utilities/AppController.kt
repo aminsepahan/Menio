@@ -14,12 +14,12 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import io.menio.android.R
+import io.menio.android.activities.Menu.CategoryActivity
+import io.menio.android.activities.Menu.MenuActivity
 import io.menio.android.activities.Settings.SettingsActivity
-import io.menio.android.models.CategoryModel
-import io.menio.android.models.MenuModel
-import io.menio.android.models.MerchantModel
-import io.menio.android.models.RestaurantModel
+import io.menio.android.models.*
 import io.menio.android.utilities.Constants.*
+
 
 /**
  * Created by Amin on 25/02/2018.
@@ -31,6 +31,22 @@ class AppController : Application() {
             .simpleName
     private var mRequestQueue: RequestQueue? = null
 
+    private var _language: LanguageModel? = null
+    var language: LanguageModel?
+        get() {
+            if (_language == null) {
+                if (isSet(SELECTED_LANGUAGE)) {
+                    _language = Gson().fromJson(getSP(SELECTED_LANGUAGE), LanguageModel::class.java)
+                } else {
+                    throw AssertionError("Set to null by another thread")
+                }
+            }
+            return _language
+        }
+        set(value) {
+            _language = value
+            setSP(SELECTED_LANGUAGE, Gson().toJson(value))
+        }
 
     private var _user: MerchantModel? = null
     var user: MerchantModel?
@@ -53,8 +69,8 @@ class AppController : Application() {
     var category: CategoryModel?
         get() {
             if (_category == null) {
-                if (isSet(USER)) {
-                    _category = Gson().fromJson(getSP(USER), CategoryModel::class.java)
+                if (isSet(SELECTED_CATEGORY)) {
+                    _category = Gson().fromJson(getSP(SELECTED_CATEGORY), CategoryModel::class.java)
                 } else {
                     throw AssertionError("Set to null by another thread")
                 }
@@ -63,7 +79,7 @@ class AppController : Application() {
         }
         set(value) {
             _category = value
-            setSP(USER, Gson().toJson(value))
+            setSP(SELECTED_CATEGORY, Gson().toJson(value))
         }
 
     private var _restaurant: RestaurantModel? = null
@@ -103,9 +119,24 @@ class AppController : Application() {
             }
         }
 
+    var shoppingCartList: MutableList<ItemModel> = emptyList<ItemModel>().toMutableList()
+
+
     override fun onCreate() {
         super.onCreate()
         app = applicationContext as AppController
+    }
+
+    override fun attachBaseContext(base: Context?) {
+
+        val sp = base!!.getSharedPreferences(SP_FILE_NAME_BASE, Context.MODE_PRIVATE)
+        if (sp.getString(SELECTED_LANGUAGE, FALSE) != FALSE) {
+            _language = Gson().fromJson(sp.getString(SELECTED_LANGUAGE, FALSE), LanguageModel::class.java)
+            super.attachBaseContext(LocaleHelper.onAttach(base, language!!.code))
+        } else {
+            super.attachBaseContext(base)
+        }
+
     }
 
     fun getRequestQueue(): RequestQueue? {
@@ -127,15 +158,15 @@ class AppController : Application() {
         }
     }
 
-    fun passwordDialog(activity: Activity){
-        if (!isSet(USER_PASS)){
+    fun passwordDialog(activity: Activity) {
+        if (!isSet(USER_PASS)) {
             SettingsActivity.open(activity)
             return
         }
         val convertView = LayoutInflater.from(activity)
                 .inflate(R.layout.dialog_check_password, null, false)
         val input = convertView.findViewById<View>(R.id.input) as EditText
-        input.addTextChangedListener(object : TextWatcher{
+        input.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 input.error = null
             }
@@ -148,12 +179,14 @@ class AppController : Application() {
 
         })
         MaterialDialog.Builder(activity).customView(convertView, true)
-                .onPositive { _, _ -> run{
-                    if(input.text.toString() == getSP(Constants.USER_PASS) || input.text.toString() == "987654" )
-                        SettingsActivity.open(activity)
-                    else
-                        input.error = getString(R.string.wrong_password)
-                } }.positiveText(getString(R.string.confirm))
+                .onPositive { _, _ ->
+                    run {
+                        if (input.text.toString() == getSP(Constants.USER_PASS) || input.text.toString() == "987654")
+                            SettingsActivity.open(activity)
+                        else
+                            input.error = getString(R.string.wrong_password)
+                    }
+                }.positiveText(getString(R.string.confirm))
                 .buttonRippleColor(resources.getColor(R.color.colorPrimaryDark))
                 .negativeColor(resources.getColor(R.color.colorPrimaryDark))
                 .positiveColor(resources.getColor(R.color.colorPrimaryDark))
@@ -212,5 +245,28 @@ class AppController : Application() {
         fun getInstance(): AppController {
             return app
         }
+    }
+
+    fun changeLanguage(activity: Activity) {
+        val prevLanguage = language!!.name
+        val languageList: MutableList<String> = emptyList<String>().toMutableList()
+        restaurant!!.languages.forEach { languageList.add(it.name) }
+        MaterialDialog.Builder(activity)
+                .title(R.string.select_your_language)
+                .items(languageList)
+                .itemsCallbackSingleChoice(-1, MaterialDialog.ListCallbackSingleChoice { dialog, view, which, text ->
+                    language = restaurant!!.languages.find { it.name == languageList[which] }
+                    if (prevLanguage != language!!.name) {
+                        if (activity is CategoryActivity) {
+                            activity.languageChanged()
+                        } else if (activity is MenuActivity) {
+                            activity.downloadSelectedMenu()
+                        }
+                    }
+                    true
+                })
+                .positiveText(R.string.choose_en)
+                .negativeText(R.string.back_en)
+                .show()
     }
 }

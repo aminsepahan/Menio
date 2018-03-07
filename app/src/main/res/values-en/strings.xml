@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiter">Call Waiter</string>
+    <string name="currency_name">$</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="thanks">Thanks</string>
+    <string name="send_again">Send Code Again</string>
+    <string name="connection_error">Connection Error</string>
+    <string name="you_are_offline">You are offline</string>
+    <string name="retry">retry</string>
+    <string name="login">login</string>
+    <string name="user_name">Username</string>
+    <string name="password">password</string>
+    <string name="select_branch">Select Restaurant</string>
+    <string name="confirm">Confirm</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="action_settings">Settings</string>
+    <string name="username_reqiered">Enter your user name!</string>
+    <string name="password_reqiered">Enter the Password!</string>
+    <string name="select_menu">Select Menu</string>
+    <string name="add_to_cart">Order</string>
+    <string name="enter_password">Enter password</string>
+    <string name="wrong_password">Wrong password</string>
+    <string name="back">back</string>
+    <string name="change_password">Change password</string>
+    <string name="logout">Logout</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save Changes</string>
+    <string name="total_order_price">Order Total Price:  </string>
+    <string name="select_your_language">Select Your Language</string>
+    <string name="choose">Select</string>
+    <string name="table_number">Table Number</string>
+    <string name="menus">Menus</string>
+    <string name="more_info">More Info</string>
+    <plurals name="order_list">
+        <item quantity="one">Order list: %d item</item>
+        <item quantity="other">Order list: %d items</item>
+    </plurals>
+</resources>

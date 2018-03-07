@@ -1,6 +1,7 @@
 package io.menio.android.activities.Auth
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -14,6 +15,7 @@ import io.menio.android.interfaces.NetResponseJson
 import io.menio.android.models.MerchantModel
 import io.menio.android.utilities.AppController
 import io.menio.android.utilities.Constants.*
+import io.menio.android.utilities.LocaleHelper
 import io.menio.android.utilities.NetworkRequests
 import io.menio.android.utilities.Snippets
 import io.menio.android.utilities.Snippets.*
@@ -27,6 +29,10 @@ class AuthActivity : AppCompatActivity() {
         setContentView(R.layout.activity_auth)
         loginBtn.setOnClickListener({ performLogin() })
         Snippets.setColorForProgress(progress, resources.getColor(R.color.white))
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(LocaleHelper.onAttach(base))
     }
 
     private fun performLogin() {

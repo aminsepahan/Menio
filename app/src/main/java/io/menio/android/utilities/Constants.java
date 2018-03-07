@@ -38,22 +38,22 @@ public class Constants {
         return url.toString();
     }
 
-    public static String getMenuUrl(String locale) {
+    public static String getAllMenusUrl() {
         Uri url = getApiHttpUrlBuilder(true)
                 .appendPath("restaurant")
                 .appendPath("menus")
-                .appendQueryParameter("locale", locale)
+                .appendQueryParameter("locale", AppController.app.getLanguage().getCode())
                 .build();
         return url.toString();
     }
 
-    public static String getMenuUrl(String menuId,String locale, String currency) {
+    public static String getMenuUrl(String menuId) {
         Uri url = getApiHttpUrlBuilder(true)
                 .appendPath("restaurant")
                 .appendPath("menus")
                 .appendPath(menuId)
-                .appendQueryParameter("locale", locale)
-                .appendQueryParameter("currency", currency)
+                .appendQueryParameter("locale", AppController.app.getLanguage().getCode())
+                .appendQueryParameter("currency", AppController.app.getSP(SELECTED_CURRENCY_CODE))
                 .build();
         return url.toString();
     }
@@ -77,11 +77,10 @@ public class Constants {
     public static String SELECTED_BRANCH_ID = "SELECTED_BRANCH_ID";
     public static String SELECTED_BRANCH_NAME = "SELECTED_BRANCH_NAME";
     public static String SELECTED_LANGUAGE = "SELECTED_LANGUAGE";
-    public static String SELECTED_LANGUAGE_NAME = "SELECTED_LANGUAGE_NAME";
-    public static String SELECTED_LANGUAGE_CODE = "SELECTED_LANGUAGE_CODE";
     public static String SELECTED_CURRENCY = "SELECTED_CURRENCY";
     public static String SELECTED_CURRENCY_NAME = "SELECTED_CURRENCY_NAME";
     public static String SELECTED_CURRENCY_CODE = "SELECTED_CURRENCY_CODE";
+    public static String SELECTED_CATEGORY = "SELECTED_CATEGORY";
     public static String TABLE_NUMBER = "TABLE_NUMBER";
     public static String SLIDERS = "SLIDERS";
     public static String PROPERTY_FORM = "PROPERTY_FORM";

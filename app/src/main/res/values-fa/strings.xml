@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiter">گارسون!</string>
+    <string name="table_number">میز شماره</string>
+    <string name="menus">منوی غذاها</string>
+    <string name="more_info">اطلاعات بیشتر</string>
+    <plurals name="order_list">
+        <item quantity="one">لیست سفارشات: %d مورد</item>
+        <item quantity="other">لیست سفارشات: %d مورد</item>
+    </plurals>
+</resources>

@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="?android:attr/selectableItemBackground">
+
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/theme_medium"
-        android:textColor="@color/white"
-        android:textSize="14sp"
+        android:gravity="center"
         android:padding="5dp"
-        android:gravity="center"/>
+        android:textColor="@color/white"
+        android:textSize="14sp" />
 </RelativeLayout>

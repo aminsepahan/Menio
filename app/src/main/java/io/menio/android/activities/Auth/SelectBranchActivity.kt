@@ -1,6 +1,7 @@
 package io.menio.android.activities.Auth
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -13,6 +14,7 @@ import io.menio.android.interfaces.NetResponseJson
 import io.menio.android.utilities.AppController
 import io.menio.android.utilities.AppController.Companion.app
 import io.menio.android.utilities.Constants.*
+import io.menio.android.utilities.LocaleHelper
 import io.menio.android.utilities.NetworkRequests
 import io.menio.android.utilities.Snippets
 import kotlinx.android.synthetic.main.activity_select_branch.*
@@ -26,17 +28,19 @@ class SelectBranchActivity : AppCompatActivity() {
         showBranches()
     }
 
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(LocaleHelper.onAttach(base))
+    }
+
     private fun downloadModel() {
         NetworkRequests.getRequestJson(getRestaurant(), object : NetResponseJson{
             override fun onResponse(json: JSONObject) {
                 app.restaurant = Gson().fromJson(json.getString("restaurant"), RestaurantModel::class.java)
-                AppController.app.setSP(SELECTED_BRANCH_NAME, app.restaurant!!.name)
-                AppController.app.setSP(SELECTED_CURRENCY, Gson().toJson(app.restaurant!!.currencies[0]))
-                AppController.app.setSP(SELECTED_CURRENCY_NAME, app.restaurant!!.currencies[0].name)
-                AppController.app.setSP(SELECTED_CURRENCY_CODE, app.restaurant!!.currencies[0].code)
-                AppController.app.setSP(SELECTED_LANGUAGE, Gson().toJson(app.restaurant!!.languages[0]))
-                AppController.app.setSP(SELECTED_LANGUAGE_NAME, app.restaurant!!.languages[0].name)
-                AppController.app.setSP(SELECTED_LANGUAGE_CODE, app.restaurant!!.languages[0].code)
+                app.setSP(SELECTED_BRANCH_NAME, app.restaurant!!.name)
+                app.setSP(SELECTED_CURRENCY, Gson().toJson(app.restaurant!!.currencies[0]))
+                app.setSP(SELECTED_CURRENCY_NAME, app.restaurant!!.currencies[0].name)
+                app.setSP(SELECTED_CURRENCY_CODE, app.restaurant!!.currencies[0].code)
+                app.language = app.restaurant!!.languages[0]
             }
 
             override fun onError(error: VolleyError?, message: String, isOnline: Boolean) {

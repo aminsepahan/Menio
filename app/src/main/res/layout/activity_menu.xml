@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="io.menio.android.activities.Menu.MenuActivity">
 
     <android.support.v7.widget.AppCompatImageView
@@ -23,9 +22,9 @@
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/baseLinLay"
             android:layout_alignBottom="@+id/baseLinLay"
             android:layout_alignParentBottom="true"
+            android:layout_alignTop="@id/baseLinLay"
             android:background="@drawable/menu_back_shape"
             android:padding="40dp" />
 
@@ -36,22 +35,48 @@
             android:layout_alignParentBottom="true"
             android:animateLayoutChanges="true"
             android:orientation="vertical"
-            android:paddingTop="60dp"
-            android:paddingBottom="60dp"/>
+            android:paddingBottom="60dp"
+            android:paddingTop="60dp" />
     </RelativeLayout>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/language"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/header_btn_middle"
+        android:gravity="center"
+        android:layout_alignParentLeft="true"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textAllCaps="true"
+        android:textColor="@color/dark_gray"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/setting"
         android:layout_width="wrap_content"
         android:layout_height="55dp"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dp"
-        android:background="@drawable/header_btn_right"
+        android:layout_toRightOf="@+id/language"
+        android:background="@drawable/header_btn_end"
         android:paddingBottom="15dp"
         android:paddingLeft="15dp"
         android:paddingRight="20dp"
         android:paddingTop="15dp"
         android:src="@drawable/ic_settings_black" />
+
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="1dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/language"
+        android:background="@drawable/header_btn_middle"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:src="@color/gray_light" />
 
 </RelativeLayout>
