@@ -49,10 +49,10 @@ class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, v
 
     override fun onBindViewHolder(holder: FoodItemAdapter.ViewHolder, position: Int) {
         when (type) {
-            GRID_TYPE -> holder.bindItems(modelList!![position], type)
-            LIST_TYPE -> holder.bindItems(modelList!![position], type)
-            SHOPPING_LIST_TYPE -> holder.bindItems(modelList!![position], type)
-            else -> holder.bindItems(modelList!![position], type)
+            GRID_TYPE -> holder.bindItems(modelList!![position], type, position)
+            LIST_TYPE -> holder.bindItems(modelList!![position], type, position)
+            SHOPPING_LIST_TYPE -> holder.bindItems(modelList!![position], type, position)
+            else -> holder.bindItems(modelList!![position], type, position)
         }
     }
 
@@ -67,7 +67,7 @@ class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, v
     class ViewHolder(itemView: View?, private val clickListener: OnItemClicked, type: Int, val activity: Activity) :
             RecyclerView.ViewHolder(itemView) {
 
-        fun bindItems(model: ItemModel, type: Int) {
+        fun bindItems(model: ItemModel, type: Int, position: Int) {
 
             when (type) {
                 LIST_TYPE -> {
@@ -84,6 +84,7 @@ class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, v
                 SHOPPING_LIST_TYPE -> {
                     itemView.titleShoppingCart.text = model.name
                     itemView.priceShoppingCart.text = Constants.formatPriceWithCurrency(model.price)
+                    itemView.moreInfo.setOnClickListener{ItemDetailActivity.open(activity, position)}
                     Glide.with(activity).load(model.thumbnailUrl).into(itemView.imageShoppingCart)
                 }
                 else -> {

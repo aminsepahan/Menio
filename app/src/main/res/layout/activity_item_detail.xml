@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/shadow"
+    tools:context="io.menio.android.activities.Menu.ItemDetailActivity">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/baseCV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="70dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_pattern_repeat"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.2">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/prev"
+                    android:layout_width="50dp"
+                    android:layout_height="70dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="50dp"
+                    android:paddingTop="40dp"
+                    android:src="@drawable/ic_prev_arrow" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/next"
+                    android:layout_width="50dp"
+                    android:layout_height="70dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="50dp"
+                    android:paddingBottom="40dp"
+                    android:src="@drawable/ic_next_arrow" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/titleShoppingCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/theme"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:paddingEnd="2dp"
+                    android:paddingStart="2dp"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="14dp" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/priceShoppingCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/theme_medium"
+                    android:maxLines="1"
+                    android:paddingBottom="20dp"
+                    android:paddingEnd="2dp"
+                    android:paddingStart="2dp"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="14dp" />
+
+                <include
+                    android:id="@+id/btnLay"
+                    layout="@layout/item_cart_options"
+                    android:layout_width="150dp"
+                    android:layout_height="0dp"
+                    android:layout_gravity="start"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="40dp"
+                android:text="گه اغراق نکرده باشم فکر کنم که خورشت قرمه سبزی محبوب ترین خورشت بین ما ایرانیاست. من یکی که اگه یه هفته پشت سر هم قرمه سبزی بخورم بازم مشتاقم برای وعده بعدی. پختن این خورشت هم خیلی راحته فقط کافیه یک سری از فوت فن هاشو رعایت کنیم تا یه خورشت قرمه سبزی خوشمزه و جا افتاده داشته باشیم که من امروز علاوه بر طرز تهیه این خورشت فوت و فن هاشم بهتون میگم." />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <io.menio.android.utilities.SquareRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="190dp"
+        android:layout_marginRight="190dp"
+        android:layout_marginTop="45dp">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </io.menio.android.utilities.SquareRelativeLayout>
+
+
+</RelativeLayout>
