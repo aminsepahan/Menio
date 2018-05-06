@@ -41,7 +41,7 @@ class MenuActivity : BaseActivity() {
         baseLinLay.removeAllViews()
         Glide.with(this).load(AppController.app.menu!!.backgroundUrl).into(menuBack)
         for (category in AppController.app.menu!!.categories) {
-            var row = LayoutInflater.from(this).inflate(R.layout.item_category, baseLinLay, false)
+            val row = LayoutInflater.from(this).inflate(R.layout.item_category, baseLinLay, false)
             row.title.text = category.name
             row.setOnClickListener({ selectCategory(category, row) })
             baseLinLay.addView(row)

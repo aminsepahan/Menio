@@ -41,6 +41,8 @@ class SelectBranchActivity : AppCompatActivity() {
                 app.setSP(SELECTED_CURRENCY_NAME, app.restaurant!!.currencies[0].name)
                 app.setSP(SELECTED_CURRENCY_CODE, app.restaurant!!.currencies[0].code)
                 app.language = app.restaurant!!.languages[0]
+                SelectMenuActivity.open(this@SelectBranchActivity, intent.getBooleanExtra(IS_FROM_SPLASH, false))
+                finish()
             }
 
             override fun onError(error: VolleyError?, message: String, isOnline: Boolean) {
@@ -55,10 +57,9 @@ class SelectBranchActivity : AppCompatActivity() {
         branchSpinner.adapter = adapter
         branchSpinner.setSelection(0)
         select.setOnClickListener({
-            downloadModel()
             AppController.app.setSP(SELECTED_BRANCH_ID, (branchSpinner.selectedItem as RestaurantModel).id)
-            SelectMenuActivity.open(this, intent.getBooleanExtra(IS_FROM_SPLASH, false))
-            finish()
+            downloadModel()
+
         })
     }
 

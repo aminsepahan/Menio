@@ -38,7 +38,7 @@ class AppController : Application() {
                 if (isSet(SELECTED_LANGUAGE)) {
                     _language = Gson().fromJson(getSP(SELECTED_LANGUAGE), LanguageModel::class.java)
                 } else {
-                    throw AssertionError("Set to null by another thread")
+                    return null
                 }
             }
             return _language
@@ -55,7 +55,7 @@ class AppController : Application() {
                 if (isSet(USER)) {
                     _user = Gson().fromJson(getSP(USER), MerchantModel::class.java)
                 } else {
-                    throw AssertionError("Set to null by another thread")
+                    return null
                 }
             }
             return _user
@@ -65,6 +65,23 @@ class AppController : Application() {
             setSP(USER, Gson().toJson(value))
         }
 
+    private var _branchId: String? = null
+    var branchId: String?
+        get() {
+            if (_branchId == null) {
+                if (isSet(SELECTED_BRANCH_ID)) {
+                    _branchId = getSP(SELECTED_BRANCH_ID)
+                } else {
+                    return null
+                }
+            }
+            return _branchId
+        }
+        set(value) {
+            _branchId = value
+            setSP(BRANCH_ID, value!!)
+        }
+
     private var _category: CategoryModel? = null
     var category: CategoryModel?
         get() {
@@ -72,7 +89,7 @@ class AppController : Application() {
                 if (isSet(SELECTED_CATEGORY)) {
                     _category = Gson().fromJson(getSP(SELECTED_CATEGORY), CategoryModel::class.java)
                 } else {
-                    throw AssertionError("Set to null by another thread")
+                    return null
                 }
             }
             return _category
@@ -89,7 +106,7 @@ class AppController : Application() {
                 if (isSet(SELECTED_BRANCH)) {
                     _restaurant = Gson().fromJson(getSP(SELECTED_BRANCH), RestaurantModel::class.java)
                 } else {
-                    throw AssertionError("user haven't been set")
+                    return null
                 }
             }
             return _restaurant
@@ -136,7 +153,6 @@ class AppController : Application() {
         } else {
             super.attachBaseContext(base)
         }
-
     }
 
     fun getRequestQueue(): RequestQueue? {

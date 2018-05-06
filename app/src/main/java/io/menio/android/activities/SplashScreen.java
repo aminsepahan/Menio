@@ -31,7 +31,7 @@ public class SplashScreen extends Activity {
 
 
     public void openApp() {
-        if (app.isSet(IS_LOGGED_IN)) {
+        if (app.isSet(IS_LOGGED_IN)&& app.getLanguage() != null && app.getMenu() != null) {
             MenuActivity.Companion.open(this);
         } else {
             AuthActivity.Companion.open(this, true);

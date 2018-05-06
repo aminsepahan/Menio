@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "968701498280",
+    "firebase_url": "https://menio-1369f.firebaseio.com",
+    "project_id": "menio-1369f",
+    "storage_bucket": "menio-1369f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:968701498280:android:5a63b9c30e5f3790",
+        "android_client_info": {
+          "package_name": "io.menio.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "968701498280-jbp6ugo2kcvv9ibbmngsj3mgc9893k8v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW0xDbQ5Jn51qTt_XFVeCGeHGS58itNS8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
