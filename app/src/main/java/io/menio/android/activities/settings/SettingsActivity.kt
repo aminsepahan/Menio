@@ -1,9 +1,8 @@
-package io.menio.android.activities.Settings
+package io.menio.android.activities.settings
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -17,7 +16,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.squareup.picasso.Picasso
 import io.menio.android.R
-import io.menio.android.activities.Auth.AuthActivity
+import io.menio.android.activities.auth.AuthActivity
 import io.menio.android.interfaces.NetResponseJson
 import io.menio.android.models.MenuModel
 import io.menio.android.utilities.AppController

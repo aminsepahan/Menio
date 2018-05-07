@@ -1,13 +1,10 @@
-package io.menio.android.activities.Menu
+package io.menio.android.activities.menu
 
 import android.app.Activity
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.annotation.IntDef
 import io.menio.android.R
 import io.menio.android.utilities.BaseActivity
-import io.menio.android.utilities.Constants
 
 class ItemDetailActivity : BaseActivity() {
 

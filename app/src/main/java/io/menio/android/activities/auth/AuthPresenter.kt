@@ -1,4 +1,4 @@
-package io.menio.android.activities.Auth
+package io.menio.android.activities.auth
 
 /**
  * Created by Amin on 02/11/2017.

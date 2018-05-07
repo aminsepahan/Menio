@@ -1,4 +1,4 @@
-package io.menio.android.activities.Auth
+package io.menio.android.activities.auth
 
 import android.app.Activity
 import android.content.Context
@@ -10,7 +10,6 @@ import android.view.View.VISIBLE
 import com.android.volley.VolleyError
 import com.google.gson.Gson
 import io.menio.android.R
-import io.menio.android.interfaces.NetResponse
 import io.menio.android.interfaces.NetResponseJson
 import io.menio.android.models.MerchantModel
 import io.menio.android.utilities.AppController

@@ -1,4 +1,4 @@
-package io.menio.android.activities.Auth
+package io.menio.android.activities.auth
 
 import android.app.Activity
 import android.view.LayoutInflater

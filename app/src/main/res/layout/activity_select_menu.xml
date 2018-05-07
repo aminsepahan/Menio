@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="io.menio.android.activities.Auth.AuthActivity">
+    tools:context="io.menio.android.activities.auth.AuthActivity">
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/loginLogo"

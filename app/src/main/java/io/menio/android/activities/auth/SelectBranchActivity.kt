@@ -1,4 +1,4 @@
-package io.menio.android.activities.Auth
+package io.menio.android.activities.auth
 
 import android.app.Activity
 import android.content.Context
@@ -9,7 +9,7 @@ import com.android.volley.VolleyError
 import com.google.gson.Gson
 import io.menio.android.R
 import io.menio.android.models.RestaurantModel
-import io.menio.android.activities.SelectMenu.SelectMenuActivity
+import io.menio.android.activities.selectMenu.SelectMenuActivity
 import io.menio.android.interfaces.NetResponseJson
 import io.menio.android.utilities.AppController
 import io.menio.android.utilities.AppController.Companion.app

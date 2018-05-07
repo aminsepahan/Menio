@@ -1,4 +1,4 @@
-package io.menio.android.activities.Menu
+package io.menio.android.activities.menu
 
 import android.app.Activity
 import android.content.Intent
@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.github.florent37.viewanimator.ViewAnimator
 import io.menio.android.R
 import io.menio.android.interfaces.OnItemClicked
+import io.menio.android.models.CartUpdateEvent
 import io.menio.android.models.ItemModel
 import io.menio.android.utilities.AppController
 import io.menio.android.utilities.BaseActivity
@@ -20,6 +21,7 @@ import io.menio.android.utilities.Constants
 import io.menio.android.utilities.Constants.*
 import io.menio.android.utilities.ItemDecorationPaddingTop
 import kotlinx.android.synthetic.main.activity_category.*
+import org.greenrobot.eventbus.Subscribe
 
 class CategoryActivity : BaseActivity(), OnItemClicked {
 
@@ -112,25 +114,6 @@ class CategoryActivity : BaseActivity(), OnItemClicked {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-
-    fun updateCart(model: ItemModel, qty: Int) {
-        var isInCart = false
-        if (qty > 0) {
-            for (itemModel in AppController.app.shoppingCartList) {
-                if (itemModel.id == model.id) {
-                    isInCart = true
-                    break
-                }
-            }
-            if (!isInCart) {
-                AppController.app.shoppingCartList.add(model)
-            }
-        } else {
-            AppController.app.shoppingCartList.remove(model)
-        }
-        updateCartView()
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         updateCartView()
         if (requestCode == SETTING_REQ_CODE &&
@@ -159,6 +142,11 @@ class CategoryActivity : BaseActivity(), OnItemClicked {
         data.putExtra(SELECTED_LANGUAGE, true)
         setResult(Activity.RESULT_CANCELED, data)
         finish()
+    }
+
+    @Subscribe
+    public fun handleCartUpdate(event: CartUpdateEvent){
+        updateCartView()
     }
 
     companion object {

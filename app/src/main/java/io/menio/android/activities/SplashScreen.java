@@ -6,9 +6,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import io.menio.android.R;
-import io.menio.android.activities.Auth.AuthActivity;
-import io.menio.android.activities.Menu.MenuActivity;
-import io.menio.android.utilities.AppController;
+import io.menio.android.activities.auth.AuthActivity;
+import io.menio.android.activities.menu.MenuActivity;
 
 import static io.menio.android.utilities.AppController.*;
 import static io.menio.android.utilities.Constants.*;

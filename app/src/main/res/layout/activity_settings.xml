@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="50dp"
     android:orientation="vertical"
-    tools:context="io.menio.android.activities.Settings.SettingsActivity">
+    tools:context="io.menio.android.activities.settings.SettingsActivity">
 
 
     <RelativeLayout

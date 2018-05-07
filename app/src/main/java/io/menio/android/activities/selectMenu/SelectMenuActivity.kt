@@ -1,4 +1,4 @@
-package io.menio.android.activities.SelectMenu
+package io.menio.android.activities.selectMenu
 
 import android.app.Activity
 import android.content.Context
@@ -16,7 +16,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.squareup.picasso.Picasso
 import io.menio.android.R
-import io.menio.android.activities.Menu.MenuActivity
+import io.menio.android.activities.menu.MenuActivity
 import io.menio.android.interfaces.NetResponseJson
 import io.menio.android.models.MenuModel
 import io.menio.android.utilities.AppController

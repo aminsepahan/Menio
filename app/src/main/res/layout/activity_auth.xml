@@ -3,7 +3,7 @@
     <data>
         <variable
             name="presenter"
-            type="io.menio.android.activities.Auth.AuthPresenter" />
+            type="io.menio.android.activities.auth.AuthPresenter" />
     </data>
 
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="io.menio.android.activities.Auth.AuthActivity">
+        tools:context="io.menio.android.activities.auth.AuthActivity">
 
 
         <android.support.v7.widget.AppCompatImageView

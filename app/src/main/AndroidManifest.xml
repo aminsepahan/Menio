@@ -10,18 +10,19 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:fullBackupContent="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".activities.Menu.MenuActivity" />
+        android:theme="@style/AppTheme.1">
+        <activity android:name=".activities.menu.MenuActivity" />
         <activity
-            android:name=".activities.Auth.AuthActivity"
+            android:name=".activities.auth.AuthActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.SelectMenu.SelectMenuActivity"
+            android:name=".activities.selectMenu.SelectMenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.Auth.SelectBranchActivity"
+            android:name=".activities.auth.SelectBranchActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SplashScreen"
@@ -33,10 +34,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.Menu.CategoryActivity" />
-        <activity android:name=".activities.Settings.SettingsActivity" />
+        <activity android:name=".activities.menu.CategoryActivity" />
+        <activity android:name=".activities.settings.SettingsActivity" />
         <activity
-            android:name=".activities.Menu.ItemDetailActivity"
+            android:name=".activities.menu.ItemDetailActivity"
             android:theme="@style/Theme.Transparent" />
     </application>
 

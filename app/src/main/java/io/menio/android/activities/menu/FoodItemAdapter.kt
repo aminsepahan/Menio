@@ -1,4 +1,4 @@
-package io.menio.android.activities.Menu
+package io.menio.android.activities.menu
 
 import android.app.Activity
 import android.support.v7.widget.RecyclerView
@@ -10,9 +10,9 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.github.florent37.viewanimator.ViewAnimator
 import io.menio.android.R
-import io.menio.android.activities.Menu.CategoryActivity.Companion.GRID_TYPE
-import io.menio.android.activities.Menu.CategoryActivity.Companion.LIST_TYPE
-import io.menio.android.activities.Menu.CategoryActivity.Companion.SHOPPING_LIST_TYPE
+import io.menio.android.activities.menu.CategoryActivity.Companion.GRID_TYPE
+import io.menio.android.activities.menu.CategoryActivity.Companion.LIST_TYPE
+import io.menio.android.activities.menu.CategoryActivity.Companion.SHOPPING_LIST_TYPE
 import io.menio.android.interfaces.CartUpdate
 import io.menio.android.interfaces.OnItemClicked
 import io.menio.android.models.CartUpdateEvent
@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.item_cart_options.view.*
 import kotlinx.android.synthetic.main.item_food_grid.view.*
 import kotlinx.android.synthetic.main.item_food_list.view.*
 import kotlinx.android.synthetic.main.item_food_shopping_cart.view.*
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by Amin on 26/11/2017.
@@ -143,7 +144,7 @@ class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, v
                                 itemView.cartTitle.setOnClickListener { addToCartClicked(model) }
                             }.start()
                 }
-                (activity as CategoryActivity).updateCart(model, model.qty)
+                EventBus.getDefault().post(CartUpdateEvent(model.id, model.qty))
             }
         }
     }

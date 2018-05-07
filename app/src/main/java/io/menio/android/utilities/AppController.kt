@@ -14,9 +14,9 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import io.menio.android.R
-import io.menio.android.activities.Menu.CategoryActivity
-import io.menio.android.activities.Menu.MenuActivity
-import io.menio.android.activities.Settings.SettingsActivity
+import io.menio.android.activities.menu.CategoryActivity
+import io.menio.android.activities.menu.MenuActivity
+import io.menio.android.activities.settings.SettingsActivity
 import io.menio.android.models.*
 import io.menio.android.utilities.Constants.*
 
