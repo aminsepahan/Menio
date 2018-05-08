@@ -1,6 +1,5 @@
 package io.menio.android.activities.menu
 
-import android.app.Activity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +27,7 @@ import org.greenrobot.eventbus.EventBus
  * Created by Amin on 26/11/2017.
  *
  */
-class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, val activity: Activity)
+class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, val fragment: CategoryFragment1)
     : RecyclerView.Adapter<FoodItemAdapter.ViewHolder>(), CartUpdate {
 
     var modelList: MutableList<ItemModel>? = null
@@ -36,14 +35,14 @@ class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, v
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodItemAdapter.ViewHolder {
         return when (type) {
             GRID_TYPE -> ViewHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_food_grid, parent, false), clickListener, type, activity)
+                    .inflate(R.layout.item_food_grid, parent, false), clickListener, type, fragment)
             LIST_TYPE -> ViewHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_food_list, parent, false), clickListener, type, activity)
+                    .inflate(R.layout.item_food_list, parent, false), clickListener, type, fragment)
             SHOPPING_LIST_TYPE -> ViewHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_food_shopping_cart, parent, false), clickListener, type, activity)
+                    .inflate(R.layout.item_food_shopping_cart, parent, false), clickListener, type, fragment)
             else -> {
                 ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_category, parent, false),
-                        clickListener, type, activity)
+                        clickListener, type, fragment)
             }
         }
     }
@@ -65,7 +64,7 @@ class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, v
 
     }
 
-    class ViewHolder(itemView: View?, private val clickListener: OnItemClicked, type: Int, val activity: Activity) :
+    class ViewHolder(itemView: View?, private val clickListener: OnItemClicked, type: Int, val fragment: CategoryFragment1) :
             RecyclerView.ViewHolder(itemView) {
 
         fun bindItems(model: ItemModel, type: Int, position: Int) {
@@ -74,19 +73,19 @@ class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, v
                 LIST_TYPE -> {
                     itemView.title.text = model.name
                     itemView.price.text = Constants.formatPriceWithCurrency(model.price)
-                    Glide.with(activity).load(model.thumbnailUrl).into(itemView.image)
+                    Glide.with(fragment).load(model.thumbnailUrl).into(itemView.image)
                     itemView.ingredients.text = model.ingredient
                 }
                 GRID_TYPE -> {
                     itemView.gridTitle.text = model.name
                     itemView.gridPrice.text = Constants.formatPriceWithCurrency(model.price)
-                    Glide.with(activity).load(model.thumbnailUrl).into(itemView.gridImage)
+                    Glide.with(fragment).load(model.thumbnailUrl).into(itemView.gridImage)
                 }
                 SHOPPING_LIST_TYPE -> {
                     itemView.titleShoppingCart.text = model.name
                     itemView.priceShoppingCart.text = Constants.formatPriceWithCurrency(model.price)
-                    itemView.moreInfo.setOnClickListener{ItemDetailActivity.open(activity, position)}
-                    Glide.with(activity).load(model.thumbnailUrl).into(itemView.imageShoppingCart)
+                    itemView.moreInfo.setOnClickListener { ItemDetailActivity.open(fragment.activity, position) }
+                    Glide.with(fragment).load(model.thumbnailUrl).into(itemView.imageShoppingCart)
                 }
                 else -> {
 
@@ -120,14 +119,14 @@ class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, v
                 itemView.cartIncrease.setOnClickListener { increaseDecrease(model, true) }
                 itemView.cartDecrease.setOnClickListener { increaseDecrease(model, false) }
             }.start()
-            (activity as CategoryActivity).updateCart(model, 1)
+            fragment.updateCart(model, 1)
         }
 
         private fun increaseDecrease(model: ItemModel, increaseDecrease: Boolean) {
             if (increaseDecrease) {
                 model.qty++
                 itemView.cartQty.text = model.qty.toString()
-                (activity as CategoryActivity).updateCart(model, model.qty)
+                fragment.updateCart(model, model.qty)
             } else {
                 model.qty--
                 if (model.qty > 0) {
