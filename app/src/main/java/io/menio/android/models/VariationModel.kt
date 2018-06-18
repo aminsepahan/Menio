@@ -7,4 +7,5 @@ data class VariationModel(@SerializedName("_id") @JSONField(name = "_id") val id
                           val name: String,
                           val price: Double,
                           val inventory: InventoryModel,
+                          var qty: Int,
                           @SerializedName("is_active") @JSONField(name = "is_active") val isActive: Boolean)

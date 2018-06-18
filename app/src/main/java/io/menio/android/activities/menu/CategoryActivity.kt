@@ -13,18 +13,25 @@ import io.menio.android.utilities.Constants.*
 class CategoryActivity : BaseActivity() {
 
 
-    public lateinit var modelList: MutableList<ItemModel>
+    public lateinit var modelList: List<ItemModel>
     lateinit var fragment: CategoryFragmentBase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
         modelList = AppController.app.category!!.menuItems
+        fragment = CategoryFragment1.newInstance()
+        supportFragmentManager
+                .beginTransaction()
+                .add(R.id.frame, fragment)
+                .commit()
 
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        if (fragment.onBackPressed()) {
+            super.onBackPressed()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -60,6 +67,8 @@ class CategoryActivity : BaseActivity() {
             activity.startActivityForResult(intent, EDIT_REQ_CODE);
         }
     }
+
+
 
 
 }

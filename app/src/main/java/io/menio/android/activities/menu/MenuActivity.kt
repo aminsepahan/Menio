@@ -16,6 +16,7 @@ import io.menio.android.models.ItemModel
 import io.menio.android.models.MenuModel
 import io.menio.android.utilities.*
 import io.menio.android.utilities.Constants.*
+import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.item_category.view.*
 import org.json.JSONObject
@@ -26,7 +27,7 @@ class MenuActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
         populateMenu()
-        AppController.app.shoppingCartList = emptyList<ItemModel>().toMutableList()
+        getShoppingcart(Consumer { app.shoppingCart = it }, Consumer {  })
         setting.setOnClickListener { AppController.app.passwordDialog(this) }
         language.text = AppController.app.language!!.code
         language.setOnClickListener { AppController.app.changeLanguage(this) }

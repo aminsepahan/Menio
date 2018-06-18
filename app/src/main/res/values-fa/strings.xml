@@ -4,6 +4,7 @@
     <string name="table_number">میز شماره</string>
     <string name="menus">منوی غذاها</string>
     <string name="more_info">اطلاعات بیشتر</string>
+    <string name="ok">اوکی</string>
     <plurals name="order_list">
         <item quantity="one">لیست سفارشات: %d مورد</item>
         <item quantity="other">لیست سفارشات: %d مورد</item>

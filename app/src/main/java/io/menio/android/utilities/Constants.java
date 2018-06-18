@@ -62,8 +62,6 @@ public class Constants {
     public static String LOG_TAG = "****AMIN ** DEBUG****";
     private static final String IMAGE_DIRECTORY_NAME = "Moshaver";
 
-
-
     //AMIN Shared Pref Keys
     public static String SP_FILE_NAME_BASE = "sp_file_base";
     public static String FALSE = "FALSE";

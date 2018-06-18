@@ -31,7 +31,7 @@
             android:layout_marginTop="14dp"
             android:fontFamily="@font/theme_font_family"
             android:text="@string/login"
-            android:textColor="@color/textColorBlack"
+            android:textColor="@color/textColorMain"
             android:textStyle="bold" />
 
         <RelativeLayout
@@ -57,7 +57,7 @@
                 android:layout_toEndOf="@id/userNameLogo"
                 android:fontFamily="@font/theme_font_family"
                 android:text="@string/user_name"
-                android:textColor="@color/textColorBlack" />
+                android:textColor="@color/textColorMain" />
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/userName"
@@ -93,7 +93,7 @@
                 android:layout_toEndOf="@id/passwordLogo"
                 android:fontFamily="@font/theme_font_family"
                 android:text="@string/password"
-                android:textColor="@color/textColorBlack" />
+                android:textColor="@color/textColorMain" />
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/password"

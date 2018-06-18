@@ -81,7 +81,10 @@ class AuthActivity : AppCompatActivity() {
     companion object {
         fun open(activity: Activity, isFromSplash: Boolean) {
             val intent = Intent(activity, AuthActivity::class.java);
-            intent.putExtra(IS_FROM_SPLASH, true);
+            intent.putExtra(IS_FROM_SPLASH, isFromSplash);
+            if (!isFromSplash){
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            }
             activity.startActivity(intent);
         }
     }

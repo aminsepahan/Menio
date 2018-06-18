@@ -6,7 +6,7 @@
     <color name="colorPrimaryDark">#9f0731</color>
     <color name="colorAccent">#fe3a3b</color>
     <color name="splashScreenBackColor">#c70037</color>
-    <color name="textColorBlack">#1c2029</color>
+    <color name="textColorMain">#1c2029</color>
     <color name="themeButtonTextColor">#ffffff</color>
     <color name="shoppingCartBtnBack">#55d683</color>
     <color name="appMainBackground">#ffffff</color>

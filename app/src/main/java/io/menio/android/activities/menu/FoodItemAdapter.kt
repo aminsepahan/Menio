@@ -16,6 +16,8 @@ import io.menio.android.interfaces.CartUpdate
 import io.menio.android.interfaces.OnItemClicked
 import io.menio.android.models.CartUpdateEvent
 import io.menio.android.models.ItemModel
+import io.menio.android.network.invisible
+import io.menio.android.network.visible
 import io.menio.android.utilities.Constants
 import kotlinx.android.synthetic.main.item_cart_options.view.*
 import kotlinx.android.synthetic.main.item_food_grid.view.*
@@ -28,9 +30,9 @@ import org.greenrobot.eventbus.EventBus
  *
  */
 class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, val fragment: CategoryFragment1)
-    : RecyclerView.Adapter<FoodItemAdapter.ViewHolder>(), CartUpdate {
+    : BaseFoodAdapter<FoodItemAdapter.ViewHolder>(), CartUpdate {
 
-    var modelList: MutableList<ItemModel>? = null
+    var modelList: List<ItemModel>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodItemAdapter.ViewHolder {
         return when (type) {
@@ -61,7 +63,12 @@ class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, v
     }
 
     override fun update(event: CartUpdateEvent) {
-
+        for ((i, item) in modelList!!.withIndex()) {
+            if (item.id == event.id) {
+                item.qty = event.qty
+                notifyItemChanged(i)
+            }
+        }
     }
 
     class ViewHolder(itemView: View?, private val clickListener: OnItemClicked, type: Int, val fragment: CategoryFragment1) :
@@ -74,6 +81,7 @@ class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, v
                     itemView.title.text = model.name
                     itemView.price.text = Constants.formatPriceWithCurrency(model.price)
                     Glide.with(fragment).load(model.thumbnailUrl).into(itemView.image)
+                    itemView.moreInfo.setOnClickListener { ItemDetailActivity.open(fragment.activity, position) }
                     itemView.ingredients.text = model.ingredient
                 }
                 GRID_TYPE -> {
@@ -83,32 +91,52 @@ class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, v
                 }
                 SHOPPING_LIST_TYPE -> {
                     itemView.titleShoppingCart.text = model.name
-                    itemView.priceShoppingCart.text = Constants.formatPriceWithCurrency(model.price)
-                    itemView.moreInfo.setOnClickListener { ItemDetailActivity.open(fragment.activity, position) }
+                    itemView.priceShoppingCart.text = Constants.formatPriceWithCurrency(model.salePrice)
+                    if (model.variationName != null) {
+                        itemView.variationTitleShoppingCart.text = model.variationName
+                        itemView.variationTitleShoppingCart.visible()
+                        itemView.dividerShoppingCart.visible()
+                    } else {
+                        itemView.variationTitleShoppingCart.invisible()
+                        itemView.dividerShoppingCart.invisible()
+                    }
                     Glide.with(fragment).load(model.thumbnailUrl).into(itemView.imageShoppingCart)
+                    model.id = model.menuItemId
                 }
                 else -> {
 
                 }
             }
+            if (model.variations != null && model.variations!!.isNotEmpty()) {
+                var total = 0
+                for (variation in model.variations!! ) {
+                    total += variation.qty
+                }
+                model.qty = total
+            }
             if (model.qty == 0) {
-                itemView.cartTitle.visibility = VISIBLE
-                itemView.cartOptionsLay.visibility = GONE
-                itemView.cartTitle.setOnClickListener({ addToCartClicked(model) })
+                itemView.cartTitle.visible()
+                itemView.cartOptionsLay.invisible()
+                itemView.cartTitle.setOnClickListener({ addToCartClicked(model, position) })
                 itemView.cartIncrease.setOnClickListener { }
                 itemView.cartDecrease.setOnClickListener { }
             } else {
-                itemView.cartTitle.visibility = GONE
-                itemView.cartOptionsLay.visibility = VISIBLE
+                itemView.cartTitle.invisible()
+                itemView.cartOptionsLay.visible()
                 itemView.cartQty.text = model.qty.toString()
                 itemView.cartTitle.setOnClickListener {}
-                itemView.cartIncrease.setOnClickListener { increaseDecrease(model, true) }
-                itemView.cartDecrease.setOnClickListener { increaseDecrease(model, false) }
-
+                itemView.cartIncrease.setOnClickListener { increaseDecrease(model, true, position) }
+                itemView.cartDecrease.setOnClickListener { increaseDecrease(model, false, position) }
             }
         }
 
-        private fun addToCartClicked(model: ItemModel) {
+        private fun addToCartClicked(model: ItemModel, position: Int) {
+            model.variations?.let {
+                if (it.isNotEmpty()) {
+                    fragment.showVariationsDialog(model, position)
+                    return
+                }
+            }
             model.qty = 1
             ViewAnimator.animate(itemView.cartTitle).fadeOut().andAnimate(itemView.cartOptionsLay).fadeIn().duration(200).onStart {
                 itemView.cartOptionsLay.visibility = VISIBLE
@@ -116,23 +144,31 @@ class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, v
                 itemView.cartQty.text = model.qty.toString()
             }.onStop {
                 itemView.cartTitle.visibility = GONE
-                itemView.cartIncrease.setOnClickListener { increaseDecrease(model, true) }
-                itemView.cartDecrease.setOnClickListener { increaseDecrease(model, false) }
+                itemView.cartIncrease.setOnClickListener { increaseDecrease(model, true, position) }
+                itemView.cartDecrease.setOnClickListener { increaseDecrease(model, false, position) }
             }.start()
-            fragment.updateCart(model, 1)
+            fragment.addToCart(model, model.variationId)
         }
 
-        private fun increaseDecrease(model: ItemModel, increaseDecrease: Boolean) {
+        private fun increaseDecrease(model: ItemModel, increaseDecrease: Boolean, position: Int) {
+            model.variations?.let {
+                if (it.isNotEmpty()) {
+                    fragment.showVariationsDialog(model, position)
+                    return
+                }
+            }
             if (increaseDecrease) {
                 model.qty++
                 itemView.cartQty.text = model.qty.toString()
-                fragment.updateCart(model, model.qty)
+                fragment.updateCart(model, model.qty, model.variationId)
             } else {
                 model.qty--
                 if (model.qty > 0) {
                     itemView.cartQty.text = model.qty.toString()
+                    fragment.updateCart(model, model.qty, model.variationId)
                 } else {
                     model.qty = 0
+                    fragment.updateCart(model, model.qty, model.variationId)
                     ViewAnimator.animate(itemView.cartTitle).fadeIn().andAnimate(itemView.cartOptionsLay)
                             .fadeOut().duration(200).onStart {
                                 itemView.cartTitle.visibility = VISIBLE
@@ -140,7 +176,7 @@ class FoodItemAdapter(private val clickListener: OnItemClicked, val type: Int, v
                                 itemView.cartDecrease.setOnClickListener { }
                             }.onStop {
                                 itemView.cartOptionsLay.visibility = GONE
-                                itemView.cartTitle.setOnClickListener { addToCartClicked(model) }
+                                itemView.cartTitle.setOnClickListener { addToCartClicked(model, position) }
                             }.start()
                 }
                 EventBus.getDefault().post(CartUpdateEvent(model.id, model.qty))

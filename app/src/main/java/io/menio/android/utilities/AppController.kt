@@ -6,6 +6,7 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
@@ -18,7 +19,10 @@ import io.menio.android.activities.menu.CategoryActivity
 import io.menio.android.activities.menu.MenuActivity
 import io.menio.android.activities.settings.SettingsActivity
 import io.menio.android.models.*
+import io.menio.android.network.Webservice
 import io.menio.android.utilities.Constants.*
+import org.greenrobot.eventbus.EventBus
+import kotlin.properties.Delegates
 
 
 /**
@@ -27,8 +31,12 @@ import io.menio.android.utilities.Constants.*
  */
 class AppController : Application() {
 
-    val TAG = AppController::class.java
-            .simpleName
+
+    val cons by lazy { ConstantsKotlin() }
+    val webService by lazy {
+        Webservice.create()
+    }
+
     private var mRequestQueue: RequestQueue? = null
 
     private var _language: LanguageModel? = null
@@ -98,6 +106,79 @@ class AppController : Application() {
             _category = value
             setSP(SELECTED_CATEGORY, Gson().toJson(value))
         }
+    var shoppingCart by Delegates.observable<ShoppingCartModel?>(null) { _, old, new ->
+        new?.lineItems?.let {
+            for (item in new.lineItems) {
+                for (cat in menu!!.categories) {
+                    for (menuItem in cat.menuItems) {
+                        if (menuItem.id == item.menuItemId) {
+                            if (menuItem.qty != item.qty) {
+                                if (item.variationId != null && menuItem.variations != null) {
+                                    for (variation in menuItem.variations!!) {
+                                        if (variation.id == item.variationId) {
+                                            variation.qty = item.qty
+                                            break
+                                        }
+                                    }
+                                } else {
+                                    menuItem.qty = item.qty
+                                }
+                                EventBus.getDefault().post(CartUpdateEvent(item.menuItemId, item.qty))
+                            }
+                        }
+                    }
+                }
+            }
+            EventBus.getDefault().post(CartUpdateEvent("", new.itemsCount))
+        }
+        old?.lineItems?.let {
+            if (new?.lineItems != null) {
+                for (item in old.lineItems) {
+                    var found = false
+                    for (newItem in new.lineItems) {
+                        if (newItem.menuItemId == item.menuItemId) found = true
+                    }
+                    if (!found) {
+                        EventBus.getDefault().post(CartUpdateEvent(item.menuItemId, 0))
+                        for (cat in menu!!.categories) {
+                            for (menuItem in cat.menuItems) {
+                                if (menuItem.id == item.menuItemId) {
+                                    if (item.variationId != null) {
+                                        for (variation in menuItem.variations!!) {
+                                            menuItem.qty = menuItem.qty - variation.qty
+                                            variation.qty = 0
+                                        }
+                                    } else {
+                                        menuItem.qty = 0
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                EventBus.getDefault().post(CartUpdateEvent("", 0))
+                for (item in old.lineItems) {
+                    for (cat in menu!!.categories) {
+                        for (menuItem in cat.menuItems) {
+                            if (menuItem.id == item.menuItemId) {
+                                if (item.variationId != null) {
+                                    for (variation in menuItem.variations!!) {
+                                        menuItem.qty = menuItem.qty - variation.qty
+                                        variation.qty = 0
+                                    }
+                                } else {
+                                    menuItem.qty = 0
+                                }
+                            }
+                        }
+                    }
+                    EventBus.getDefault().post(CartUpdateEvent(item.menuItemId, 0))
+                }
+            }
+        }
+    }
+
 
     private var _restaurant: RestaurantModel? = null
     var restaurant: RestaurantModel?
@@ -114,6 +195,18 @@ class AppController : Application() {
         set(value) {
             _restaurant = value
             setSP(SELECTED_BRANCH, Gson().toJson(value))
+        }
+
+    var tableNumber: Int
+        get() {
+            return if (getSP(cons.TABLE_NUMBER) != FALSE) {
+                getSP(cons.TABLE_NUMBER).toInt()
+            } else {
+                1
+            }
+        }
+        set(value) {
+            setSP(cons.TABLE_NUMBER, value.toString())
         }
 
     private var _menu: MenuModel? = null
@@ -136,12 +229,11 @@ class AppController : Application() {
             }
         }
 
-    var shoppingCartList: MutableList<ItemModel> = emptyList<ItemModel>().toMutableList()
-
 
     override fun onCreate() {
         super.onCreate()
         app = applicationContext as AppController
+        Log.d(cons.LOG_TAG + "   token   =", getSP(ACCESS_TOKEN))
     }
 
     override fun attachBaseContext(base: Context?) {
@@ -164,7 +256,7 @@ class AppController : Application() {
 
     fun <T> addToRequestQueue(req: com.android.volley.Request<T>, tag: String) {
         // set the default tag if tag is empty
-        req.tag = if (TextUtils.isEmpty(tag)) TAG else tag
+        req.tag = if (TextUtils.isEmpty(tag)) cons.LOG_TAG else tag
         getRequestQueue()!!.add(req)
     }
 
@@ -216,12 +308,13 @@ class AppController : Application() {
     }
 
 
-    fun getSP(key: String, defaultValue: String?): String? {
+    fun getSP(key: String, defaultValue: String?): String {
         val sp = getSharedPreferences(SP_FILE_NAME_BASE, Context.MODE_PRIVATE)
-        return sp.getString(key, defaultValue)
+        defaultValue?.let { return sp.getString(key, defaultValue) }
+        return sp.getString(key, FALSE)
     }
 
-    fun getSP(key: String): String? {
+    fun getSP(key: String): String {
         return getSP(key, FALSE)
     }
 

@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Point;
@@ -57,8 +56,6 @@ import io.menio.android.R;
 
 import static io.menio.android.utilities.AppController.app;
 import static io.menio.android.utilities.Constants.FALSE;
-import static io.menio.android.utilities.Constants.SP_FILE_NAME_BASE;
-import static io.menio.android.utilities.Constants.TRUE;
 import static io.menio.android.utilities.Constants.themeFont;
 import static io.menio.android.utilities.Constants.themeFontBold;
 import static io.menio.android.utilities.Constants.themeFontLight;

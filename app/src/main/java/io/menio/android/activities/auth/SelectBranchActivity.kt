@@ -11,6 +11,7 @@ import io.menio.android.R
 import io.menio.android.models.RestaurantModel
 import io.menio.android.activities.selectMenu.SelectMenuActivity
 import io.menio.android.interfaces.NetResponseJson
+import io.menio.android.models.CurrencyModel
 import io.menio.android.utilities.AppController
 import io.menio.android.utilities.AppController.Companion.app
 import io.menio.android.utilities.Constants.*
@@ -37,9 +38,14 @@ class SelectBranchActivity : AppCompatActivity() {
             override fun onResponse(json: JSONObject) {
                 app.restaurant = Gson().fromJson(json.getString("restaurant"), RestaurantModel::class.java)
                 app.setSP(SELECTED_BRANCH_NAME, app.restaurant!!.name)
-                app.setSP(SELECTED_CURRENCY, Gson().toJson(app.restaurant!!.currencies[0]))
-                app.setSP(SELECTED_CURRENCY_NAME, app.restaurant!!.currencies[0].name)
-                app.setSP(SELECTED_CURRENCY_CODE, app.restaurant!!.currencies[0].code)
+                var found = false
+                for (currency in app.restaurant!!.currencies) {
+                    if (currency.code == "IRR"){
+                        found = true
+                        saveCurrency(currency)
+                    }
+                }
+                if (!found) saveCurrency(app.restaurant!!.currencies[0])
                 app.language = app.restaurant!!.languages[0]
                 SelectMenuActivity.open(this@SelectBranchActivity, intent.getBooleanExtra(IS_FROM_SPLASH, false))
                 finish()
@@ -50,6 +56,12 @@ class SelectBranchActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    private fun saveCurrency(currencyModel: CurrencyModel) {
+        app.setSP(SELECTED_CURRENCY, Gson().toJson(currencyModel))
+        app.setSP(SELECTED_CURRENCY_NAME, currencyModel.name)
+        app.setSP(SELECTED_CURRENCY_CODE, currencyModel.code)
     }
 
     private fun showBranches() {
