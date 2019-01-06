@@ -16,6 +16,7 @@ public class Constants {
 
     // LINKS AND URLs:
     public static final String API_HOST = "https://api.menio.io/api/v1/";
+
     public static Uri.Builder getApiHttpUrlBuilder(boolean withVersion) {
         Uri.Builder builder = Uri.parse(API_HOST).buildUpon();
         return builder;
