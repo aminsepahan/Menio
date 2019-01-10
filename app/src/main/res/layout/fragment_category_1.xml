@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:visibility="visible"
     android:background="@color/colorAccent2"
+    android:visibility="visible"
     tools:context="io.menio.android.activities.menu.CategoryActivity">
 
     <android.support.v7.widget.RecyclerView
@@ -40,6 +40,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="110dp"
         android:background="@drawable/header_circle_shape"
+        android:backgroundTint="@color/menuCatsBack"
         android:elevation="4dp"
         android:orientation="vertical">
 
@@ -126,6 +127,9 @@
             android:layout_width="wrap_content"
             android:layout_height="55dp"
             android:background="@drawable/header_btn_start_color"
+            android:backgroundTint="@color/colorAccent"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:paddingStart="20dp">
 
             <android.support.v7.widget.AppCompatTextView
@@ -378,8 +382,7 @@
 
     </RelativeLayout>
 
-    <include
-        layout="@layout/dialog_choose_variation"/>
+    <include layout="@layout/dialog_choose_variation" />
 
 
 </RelativeLayout>

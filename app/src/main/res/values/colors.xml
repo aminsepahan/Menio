@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
+
     //App theme 1
-    <color name="colorPrimary">#c70037</color>
-    <color name="colorPrimaryDark">#9f0731</color>
-    <color name="colorAccent">#fe3a3b</color>
-    <color name="splashScreenBackColor">#c70037</color>
-    <color name="textColorMain">#1c2029</color>
+    <color name="colorPrimary">#006738</color>
+    <color name="colorPrimaryDark">#006738</color>
+    <color name="colorAccent">#069755</color>
+    <color name="splashScreenBackColor">#006738</color>
+    <color name="textColorMain">#024728</color>
+    <color name="themeButtonColor">#006738</color>
     <color name="themeButtonTextColor">#ffffff</color>
+    <color name="menuCatsBack">#ffffff</color>
     <color name="shoppingCartBtnBack">#55d683</color>
     <color name="appMainBackground">#ffffff</color>
 

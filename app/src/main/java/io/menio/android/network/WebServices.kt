@@ -48,7 +48,7 @@ interface Webservice {
             val httpLoggingInterceptor = HttpLoggingInterceptor()
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             okHttpClientBuilder.addInterceptor(httpLoggingInterceptor)
-            okHttpClientBuilder.addInterceptor({ chain ->
+            okHttpClientBuilder.addInterceptor { chain ->
                 val request = chain.request().newBuilder()
                 if (app.isSet(app.cons.ACCESS_TOKEN)) {
                     request.addHeader("Authorization", "Bearer " + app.getSP(app.cons.ACCESS_TOKEN))
@@ -58,7 +58,7 @@ interface Webservice {
                 }
                 request.addHeader("OS", "Android")
                 chain.proceed(request.build())
-            })
+            }
             val retrofit = Retrofit.Builder()
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())

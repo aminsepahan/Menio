@@ -26,6 +26,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignTop="@id/baseLinLay"
             android:background="@drawable/menu_back_shape"
+            android:backgroundTint="@color/menuCatsBack"
             android:padding="40dp" />
 
         <LinearLayout

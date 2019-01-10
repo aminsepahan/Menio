@@ -11,6 +11,6 @@
         android:fontFamily="@font/theme_medium"
         android:gravity="center"
         android:padding="5dp"
-        android:textColor="@color/white"
+        android:textColor="@color/textColorMain"
         android:textSize="14sp" />
 </RelativeLayout>
